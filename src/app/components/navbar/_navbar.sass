@@ -1,0 +1,20 @@
+@import './../../../style/variables'
+@import '../../../style/_mixins'
+nav
+  width: 100%
+  background-color: $col-secondary
+  color: white
+
+.nav-links
+  display: flex
+  width: 100%
+
+.link
+  @include flexCenter(row, $col-secondary)
+  padding: .5rem .75rem
+  color: #fff
+  width: fit-content
+
+.link:hover
+  color: $col-text
+  background-color: $col-secondary
