@@ -4,6 +4,7 @@ import { FunctionComponent } from "react";
 import PropTypes from 'prop-types'
 import { useState } from "react";
 import { stringify } from "@firebase/util";
+import { postRecipeData } from "./services";
 
 
 export const Recipe = () => {
@@ -12,6 +13,7 @@ export const Recipe = () => {
 
   const submitRecipe = (e) => {
     e.preventDefault()
+
     let form = {}
     form["name"] = document.querySelector('[name="name"]').value
     form["prep_time"] = document.querySelector('[name="prepTime"]').value
@@ -20,15 +22,10 @@ export const Recipe = () => {
     form["category"] = document.querySelector('[name="category"]').value
     form["meal_types"] = document.querySelector('[name="mealTypes"]').value
     form["image"] = document.querySelector('[name="image"]').value
-
-    form["name"] = document.querySelector('[name="name"]').value
-    form["name"] = document.querySelector('[name="name"]').value
-    form["name"] = document.querySelector('[name="name"]').value
-    form["name"] = document.querySelector('[name="name"]').value
-    form["name"] = document.querySelector('[name="name"]').value
     let ing_names = document.querySelectorAll('[name="ingr-name"]')
     let qtys = document.querySelectorAll('[name="quantity"]')
     let uoms = document.querySelectorAll('[name="uom"]')
+    // put ingredients into an array and attach as "ingredients"
     let ingredients = []
     for (let i=0; i<ing_names.length; i++) {
       let ingredient = {}
@@ -38,20 +35,9 @@ export const Recipe = () => {
       ingredients.push(ingredient)
     }
     form['ingredients'] = ingredients
-    console.log(form);
 
-    let url = 'http://127.0.0.1:5000/api/v1/recipes/create'
-    let body = JSON.stringify({ form })
-    let options = {
-      method: 'POST',
-      body: body,
-      headers: { 'Content-Type': 'application/json' }
-    }
-    fetch(url, options).then(res => res.json()).then(json => console.log(json))
-
+    postRecipeData(form)
   }
-  
-
 
   function addIngredientLine(e) {
     e.preventDefault()
