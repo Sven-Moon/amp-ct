@@ -18,6 +18,7 @@ const firebaseConfig = {
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
+  
   <FirebaseAppProvider firebaseConfig={firebaseConfig}>
       <BrowserRouter>
         <ProviderLayer />

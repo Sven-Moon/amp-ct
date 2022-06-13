@@ -1,20 +1,49 @@
-@import './../../../style/variables'
-@import '../../../style/_mixins'
+@import '../../../styles/variables'
+@import '../../../styles/_mixins'
 nav
+  display: block
+
+.nav1
+  @include flexCenter(row,transparent)
   width: 100%
-  background-color: $col-secondary
   color: white
+  background-color: $col-secondary
+
+.nav2
+  display: flex
+  background-color: orange
+
+.pay-me
+  margin-left: auto
+
+.logo
+  margin: 0 auto 0 1rem
+
+.nav-container
+  display: flex
+  width: 100%
+  max-width: 768px
+  margin-right: auto
 
 .nav-links
   display: flex
   width: 100%
 
 .link
-  @include flexCenter(row, $col-secondary)
+  @include flexCenter(row, transparent)
   padding: .5rem .75rem
   color: #fff
   width: fit-content
 
 .link:hover
   color: $col-text
-  background-color: $col-secondary
+  background-color: rgba(255, 255, 255, .8)
+
+.account-links
+  margin-right: auto
+
+.avatar
+  border-radius: 50%
+  height: 3rem
+  width: 3rem
+  cursor: pointer

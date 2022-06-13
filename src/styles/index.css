@@ -1,7 +1,49 @@
 nav {
+  display: block;
+}
+
+.nav1 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: row;
+          flex-direction: row;
+  background: transparent;
   width: 100%;
-  background-color: #4fa0bb;
   color: white;
+  background-color: #4fa0bb;
+}
+
+.nav2 {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  background-color: orange;
+}
+
+.pay-me {
+  margin-left: auto;
+}
+
+.logo {
+  margin: 0 auto 0 1rem;
+}
+
+.nav-container {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  max-width: 768px;
+  margin-right: auto;
 }
 
 .nav-links {
@@ -25,7 +67,7 @@ nav {
   -webkit-box-direction: normal;
       -ms-flex-direction: row;
           flex-direction: row;
-  background: #4fa0bb;
+  background: transparent;
   padding: .5rem .75rem;
   color: #fff;
   width: -webkit-fit-content;
@@ -35,7 +77,18 @@ nav {
 
 .link:hover {
   color: #4d4d4d;
-  background-color: #4fa0bb;
+  background-color: rgba(255, 255, 255, 0.8);
+}
+
+.account-links {
+  margin-right: auto;
+}
+
+.avatar {
+  border-radius: 50%;
+  height: 3rem;
+  width: 3rem;
+  cursor: pointer;
 }
 
 footer {
@@ -104,8 +157,15 @@ footer {
   }
 }
 
-.test {
-  background-color: darkblue;
+body {
+  margin: 0;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+code {
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',monospace;
+  color: #4d4d4d;
 }
 
 ul {
@@ -125,14 +185,7 @@ a {
   text-decoration: none;
 }
 
-body {
-  margin: 0;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',monospace;
-  color: #4d4d4d;
+.test {
+  background-color: lightblue;
 }
 /*# sourceMappingURL=index.css.map */

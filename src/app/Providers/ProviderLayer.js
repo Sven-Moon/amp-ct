@@ -1,15 +1,17 @@
-import { useFirebaseApp } from "reactfire"
+import { useFirebaseApp, AuthProvider } from "reactfire"
 import { getAuth } from "firebase/auth"
 import App from '../App'
 import DataProvider from "./DataProvider"
 
 export const ProviderLayer = () => {
   const app = useFirebaseApp()
-  // const auth = getAuth(app)
+  const auth = getAuth(app)
     
   return (
-    <DataProvider>
-      <App></App>
-    </DataProvider>
+    <AuthProvider sdk={auth}>
+      <DataProvider>
+        <App></App>
+      </DataProvider>
+    </AuthProvider>
   )
 }
