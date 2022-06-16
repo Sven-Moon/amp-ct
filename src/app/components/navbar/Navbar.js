@@ -22,12 +22,11 @@ const Navbar = () => {
   return (
     <nav>
     <div className="nav1">
-      <div className="logo">AMP</div>
+      <Link to='/' className="logo" >AMP</Link>
       <div className="nav-container">
         <ul className='nav-links'>
           <li className='link'>My Meal Plan</li>
           <li className='link'>My Recipes</li>
-          <li className='link'>Buy Me a Coffee</li>
           <li className='link'><Link to="/recipe">Create a recipe</Link></li>
         </ul>
         <ul className='link account-links'>
@@ -50,7 +49,7 @@ const Navbar = () => {
       : null }
     </div>
     <div className="nav2">
-        <Link className='link pay-me' to='/'>Buy me a coffee</Link>
+        <Link className='link pay-me' to='/donate'>Motivate Me!</Link>
     </div>
     
     </nav>

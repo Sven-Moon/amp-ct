@@ -1,0 +1,67 @@
+@import '../../../styles/_variables'
+
+#donate-box
+  display: none
+
+.donate-actions
+  width: 100%
+  justify-content: space-around
+
+  button
+    border-radius: 3px
+    padding: .5rem .75rem
+    margin-inline: 1rem
+    border: none
+    cursor: pointer
+
+.motivate
+  color: white
+  background-color: $col-primary
+  font-size: 1.5rem
+  font-weight: bold
+.motivate:disabled
+  background-color: $col-primary-disabled
+  color: $col-text-disabled
+
+.clear-total
+  color: white
+  background-color: $col-secondary
+
+.amount-select_box
+  display: flex
+  flex-wrap: wrap
+  border-radius: 6px
+  background-color: $col-tinted-light
+  padding: 2rem
+  margin-bottom: .5rem
+
+  button
+    margin: 1rem
+    padding: 1rem
+    background-position: (top 50%)
+    font-weight: bold
+    font-size: 2rem
+    border-radius: 3px
+    border: none
+    cursor: pointer
+
+.total
+  border: 1px solid $col-primary
+  width: 5rem
+  text-align: center
+  margin-left: .5rem
+  padding: .5rem
+
+.total-box
+  display: flex
+  font-size: 1.5rem
+  font-weight: bold
+  margin-bottom: .5rem
+  align-items: center
+  justify-content: center
+
+.confirmation
+  @include flexCenter(column, transparent)
+
+#donate-box.show, #payment-form.show
+  display: block
