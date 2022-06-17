@@ -1,6 +1,7 @@
 export const postRecipeData = async (form) => {
   let url = 'http://127.0.0.1:5000/api/v1/recipes/create'
-  let body = JSON.stringify({ form })
+  let body = JSON.stringify(form)
+  console.log(body);
   let options = {
     method: 'POST',
     body: body,

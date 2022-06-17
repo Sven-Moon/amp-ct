@@ -14,6 +14,7 @@ export const Recipe = () => {
   const submitRecipe = (e) => {
     e.preventDefault()
 
+    // TODO: convert to form submission
     let form = {}
     form["name"] = document.querySelector('[name="name"]').value
     form["prep_time"] = document.querySelector('[name="prepTime"]').value
@@ -26,6 +27,7 @@ export const Recipe = () => {
     let qtys = document.querySelectorAll('[name="quantity"]')
     let uoms = document.querySelectorAll('[name="uom"]')
     // put ingredients into an array and attach as "ingredients"
+    // TODO: add ingredient prep modifier
     let ingredients = []
     for (let i=0; i<ing_names.length; i++) {
       let ingredient = {}
