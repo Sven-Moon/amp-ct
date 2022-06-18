@@ -1,0 +1,19 @@
+@import '../../styles/_variables'
+@import '../../styles/_mixins'
+
+.days-box
+  display: flex
+  width: 100%
+  justify-content: space-between
+
+.day
+  @include flexCenter(row, $col-btn-primary)
+  border-radius: 50%
+  height: 2rem
+  aspect-ratio: 1
+  font-size: 1rem
+  color: white
+  background-color: $col-btn-secondary
+
+.day.active
+  background-color: $col-btn-primary

@@ -4,3 +4,18 @@
   align-items: center
   flex-direction: $direction
   background: $background
+
+@mixin btn($size, $color)
+  @if ($size  'sm')
+    $p-v: .25rem
+    $p-h: .5rem
+
+  @if ($size:  'med')
+    $p-v: .5rem
+    $p-h: .75rem
+
+  @if ($size: 'lg')
+    $p-v: .75rem
+    $p-h: 1
+
+    padding: $p-v $p-h

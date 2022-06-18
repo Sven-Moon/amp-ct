@@ -5,11 +5,13 @@ import PropTypes from 'prop-types'
 import { useState } from "react";
 import { stringify } from "@firebase/util";
 import { postRecipeData } from "./services";
+import { useUser } from 'reactfire';
 
 
 export const Recipe = () => {
 
   const [form, setform] = useState(new FormData())
+  const { status, data: user } = useUser();
 
   const submitRecipe = (e) => {
     e.preventDefault()
@@ -17,12 +19,15 @@ export const Recipe = () => {
     // TODO: convert to form submission
     let form = {}
     form["name"] = document.querySelector('[name="name"]').value
-    form["prep_time"] = document.querySelector('[name="prepTime"]').value
-    form["cook_time"] = document.querySelector('[name="cookTime"]').value
+    // let prep_time = document.querySelector('[name="prepTime"]').value
+    // console.log('prep_time = ', !!prep_time);
+    form["prep_time"] = document.querySelector('[name="prepTime"]').value || null
+    form["cook_time"] = document.querySelector('[name="cookTime"]').value || null
     form["instructions"] = document.querySelector('[name="instructions"]').value
     form["category"] = document.querySelector('[name="category"]').value
-    form["meal_types"] = document.querySelector('[name="mealTypes"]').value
+    form["meal_types"] = document.querySelector('[name="mealTypes"]').value || null
     form["image"] = document.querySelector('[name="image"]').value
+    form["created_by"] = user.email
     let ing_names = document.querySelectorAll('[name="ingr-name"]')
     let qtys = document.querySelectorAll('[name="quantity"]')
     let uoms = document.querySelectorAll('[name="uom"]')
@@ -31,8 +36,8 @@ export const Recipe = () => {
     let ingredients = []
     for (let i=0; i<ing_names.length; i++) {
       let ingredient = {}
-      ingredient['name_'+i] = ing_names[i].value
-      ingredient['quantity_' + i] = qtys[i].value
+      ingredient['name_'+ i] = ing_names[i].value
+      ingredient['quantity_' + i] = parseInt(qtys[i].value)
       ingredient['uom_' + i] = uoms[i].value
       ingredients.push(ingredient)
     }

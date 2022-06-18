@@ -3,7 +3,15 @@ import { useState, createContext } from 'react'
 
 const DataProvider = (props) => {
 
-  let appState = {}
+  const [regUser, setRegUser] = useState({ id: '', username: '' })
+  const [messages, setMessages] = useState([])
+
+  let appState = {
+    'regUser': regUser, 
+    'setRegUser': setRegUser,
+    'messages': messages, 
+    'setMessages': setMessages
+  }
 
   return (
     <DataContext.Provider value={appState}>
