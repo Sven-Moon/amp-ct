@@ -24,7 +24,6 @@ const Register = () => {
   function updateUser() {
     setUserData({...userData, email: user.email, username: user.displayName})
   }
-
   function toggleDay(e) {
     let d = e.target.dataset.dayVal 
     let el = e.target
@@ -51,7 +50,7 @@ const Register = () => {
     setScheduleData({...scheduleData, store_days_btwn: e.target.value})
   }
   function changeUsername(e) {
-    setUserData({...scheduleData, user: {...userData.user, username: e.target.value}})
+    setUserData({...userData, username: e.target.value})
   }
   function changeStoreTripMethod(e) {
     setScheduleData({...scheduleData, store_trip_method: e.target.id})
@@ -81,6 +80,7 @@ const Register = () => {
     })
     .then(resp => resp.json())
     .then(data => {
+      console.log(data)
       console.log(data.msg)
       console.log(data.user);
       let user = data.user
@@ -94,17 +94,23 @@ const Register = () => {
           return response.json()
         else {
           console.log('----user else-----')
-          setMessages({...messages.push("Something went wrong and your schedule is not set. Please go to your profile to get things to work properly")})
+          let newMessages = [...messages]
+          newMessages.push("Something went wrong and your schedule is not set. Please go to your profile to get things to work properly")
+          setMessages(newMessages)
           Navigate('/register')
         }
       })
       .then(data => {
-        setMessages(...messages.push("Your inital schedule has been set. To modify it, open settings."))
+        let newMessages = [...messages]
+        newMessages.push("Your inital schedule has been set. To modify it, open settings.")
+        setMessages([newMessages])
       })
       .catch(e => console.log(e)) // user error console
     })
     .catch(e => {
-      setMessages({ ...messages.push("Unable to register user. Please try again.") })      
+      let newMessages = [...messages]
+      newMessages.push(["Unable to register user. Please try again."])
+      setMessages([newMessages])      
       console.log(e) // schedule error console
     })
   }

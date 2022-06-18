@@ -9,6 +9,7 @@ const Navbar = () => {
   const auth = useAuth()
   const {status, data: user} = useUser()
   const {setRegUser} = useContext(DataContext)
+  const {messages} = useContext(DataContext)
   const navigate = useNavigate()
 
   const sign_in = async () => {
@@ -19,10 +20,8 @@ const Navbar = () => {
       let url = `http://localhost:5000/api/v1/user/email`
       await fetch(`${url}/${u.user.email}`)
         .then(data =>{ 
-          console.log(data)
-          console.log('NOT 200 check: ',data.status !== 200);
           if (data.status !== 200) {
-            navigate('/register')
+            throw new UserNotFoundException('UserNotFoundException')
           } else {
             console.log('navbar data (no json)',data)
             data = data.json()
@@ -31,7 +30,6 @@ const Navbar = () => {
           }
         })
         .then((data) => {
-          console.log('navbar data (json)', data)
           setRegUser({ id: data.id, username: data.username})
           navigate('/')
       })
@@ -42,10 +40,19 @@ const Navbar = () => {
     }    
   }
 
+  function UserNotFoundException(message) {
+    this.message = message
+    this.name = 'UserNotFound'
+  }
+
   const sign_out = async () => {
     await signOut(auth)
     navigate('/')
     console.log('signed user out', user) 
+  }
+
+  const displayMessages = (m,i) =>  {
+    return <li key={i}>{m}</li>
   }
 
   return (
@@ -78,6 +85,9 @@ const Navbar = () => {
       : null }
     </div>
     <div className="nav2">
+        <ul>
+          { Object.values(messages).map((m,i) => displayMessages(m,i))}
+        </ul>
         <Link className='link pay-me' to='/donate'>Motivate Me!</Link>
     </div>
     
