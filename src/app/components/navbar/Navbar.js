@@ -3,7 +3,7 @@ import { Link, Navigate, useNavigate } from 'react-router-dom';
 import { useAuth, useUser } from 'reactfire';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
 import { DataContext } from '../../Providers/DataProvider';
-
+import { UserNotFoundException } from '../../utils/exceptionTypes';
 
 const Navbar = () => {
   const auth = useAuth()
@@ -38,11 +38,6 @@ const Navbar = () => {
         navigate('register')
       })     
     }    
-  }
-
-  function UserNotFoundException(message) {
-    this.message = message
-    this.name = 'UserNotFound'
   }
 
   const sign_out = async () => {

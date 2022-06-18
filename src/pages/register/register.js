@@ -2,6 +2,7 @@ import { useEffect, useState, useContext } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useAuth, useUser } from 'reactfire'
 import { DataContext } from '../../app/Providers/DataProvider'
+import { UserNotFoundException } from '../../app/utils/exceptionTypes'
 
 const Register = () => {
 
@@ -16,12 +17,13 @@ const Register = () => {
     plan_dinner: true
   } )
   const [userData, setUserData] = useState( {
-      username: user? user.displayName : '',
+      username: user? user.displayName || "My Username" : '',
       email: user ? user.email : ''
   } )
   useEffect(() => { updateUser() }, [user])
 
   function updateUser() {
+    if (user)
     setUserData({...userData, email: user.email, username: user.displayName})
   }
   function toggleDay(e) {
@@ -78,11 +80,16 @@ const Register = () => {
         // ,'Access-Control-Allow-Origin': true
       }
     })
-    .then(resp => resp.json())
+    .then(resp => {
+      if (resp.status !== 200) 
+        throw new UserNotFoundException('UserNotFoundException')
+      return resp.json()
+    })
     .then(data => {
-      console.log(data)
-      console.log(data.msg)
-      console.log(data.user);
+      if (data?.message) {
+        setMessages([...messages, data.message])
+        throw new UserNotFoundException('UserNotFoundException')
+      }
       let user = data.user
       fetch(`http://localhost:5000/api/v1/schedule/${user.id}/create`, {
         'method': 'POST',
@@ -90,27 +97,27 @@ const Register = () => {
         headers: { 'Content-Type': 'application/json' }
       })
       .then(response => {
-        if (response.status === 200)
-          return response.json()
-        else {
-          console.log('----user else-----')
-          let newMessages = [...messages]
-          newMessages.push("Something went wrong and your schedule is not set. Please go to your profile to get things to work properly")
-          setMessages(newMessages)
-          Navigate('/register')
+        if (![200,201].includes(response.status)){
+          return response.json()}
+          else {
+            let message = "Something went wrong and your schedule is not set. Please go to your profile to get things to work properly"
+            setMessages([...messages, message])
         }
       })
       .then(data => {
-        let newMessages = [...messages]
-        newMessages.push("Your inital schedule has been set. To modify it, open settings.")
-        setMessages([newMessages])
+        let message = "To modify it, open settings."
+        let dataMessage = data?.message || null
+        setMessages([...messages, message, dataMessage])
       })
-      .catch(e => console.log(e)) // user error console
+        .catch(e => {
+          if (e?.message)
+            setMessages([...messages, e.message])
+}) // user error console
     })
     .catch(e => {
-      let newMessages = [...messages]
-      newMessages.push(["Unable to register user. Please try again."])
-      setMessages([newMessages])      
+      let errorMessage = e?.message || null 
+      let message = "Unable to register user. Please try again."
+      setMessages([...messages, message, errorMessage])      
       console.log(e) // schedule error console
     })
   }
