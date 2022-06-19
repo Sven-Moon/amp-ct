@@ -53,13 +53,20 @@ export const Recipe = () => {
       body: body,
       headers: { 'Content-Type': 'application/json' }
     }
+
     fetch(url, options).then(res => res.json())
-      .then(data =>
-        setMessages([...messages], data.message))
+      .then(data =>{
+        setMessages([...messages], data.message)
+        formReset()
+      })
       .catch(err => {
         console.log(err)
         setMessages([...messages], err.message)
       })
+  }
+
+  function formReset() {
+    document.getElementById('recipeForm').reset()
   }
 
   function addIngredientLine(e) {

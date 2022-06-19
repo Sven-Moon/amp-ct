@@ -1,7 +1,7 @@
 import { useContext } from 'react'
 import { Navigate } from 'react-router-dom'
 import { useUser } from 'reactfire'
-import { DataContext } from '../Providers/DataProvider'
+import { DataContext } from '../app/Providers/DataProvider'
 
 const Protected = ({next, children}) => {
   const { data: user } = useUser()

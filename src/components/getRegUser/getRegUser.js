@@ -1,5 +1,5 @@
 import { useUser } from 'reactfire'
-import { DataContext } from '../../Providers/DataProvider'; 
+import { DataContext } from '../../app/Providers/DataProvider'; 
 import { useEffect, useContext } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 

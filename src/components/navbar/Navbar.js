@@ -2,7 +2,7 @@ import React, { useContext } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { useAuth, useUser } from 'reactfire';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
-import { DataContext } from '../../Providers/DataProvider';
+import { DataContext } from '../../app/Providers/DataProvider';
 
 const Navbar = () => {
   const auth = useAuth()
