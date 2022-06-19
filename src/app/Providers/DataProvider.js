@@ -5,12 +5,15 @@ const DataProvider = (props) => {
 
   const [regUser, setRegUser] = useState({ id: '', username: '' })
   const [messages, setMessages] = useState([])
+  const [isLoggedIn, setIsLoggedIn] = useState(false)
 
   let appState = {
     'regUser': regUser, 
     'setRegUser': setRegUser,
     'messages': messages, 
-    'setMessages': setMessages
+    'setMessages': setMessages,
+    'isLoggedIn': isLoggedIn,
+    'setIsLoggedIn': setIsLoggedIn    
   }
 
   return (
