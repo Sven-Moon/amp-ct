@@ -1,5 +1,4 @@
 import { useState, useContext } from "react";
-import { postRecipeData } from "./services";
 import { useUser } from 'reactfire';
 import { DataContext } from "../../app/Providers/DataProvider";
 
@@ -9,6 +8,7 @@ export const Recipe = () => {
   const [form, setform] = useState(new FormData())
   const { status, data: user } = useUser();
   const { regUser } = useContext(DataContext)
+  const { messages, setMessages } = useContext(DataContext)
 
   const submitRecipe = (e) => {
     console.log(regUser)
@@ -35,13 +35,31 @@ export const Recipe = () => {
     for (let i=0; i<ing_names.length; i++) {
       let ingredient = {}
       ingredient['name_'+ i] = ing_names[i].value
-      ingredient['quantity_' + i] = parseInt(qtys[i].value)
+      ingredient['quantity_' + i] = qtys[i].value
       ingredient['uom_' + i] = uoms[i].value
       ingredients.push(ingredient)
     }
     form['ingredients'] = ingredients
 
     postRecipeData(form)
+  }
+
+  const postRecipeData = async (form) => {
+    let url = 'http://127.0.0.1:5000/api/v1/recipes/create'
+    let body = JSON.stringify(form)
+    console.log(body);
+    let options = {
+      method: 'POST',
+      body: body,
+      headers: { 'Content-Type': 'application/json' }
+    }
+    fetch(url, options).then(res => res.json())
+      .then(data =>
+        setMessages([...messages], data.message))
+      .catch(err => {
+        console.log(err)
+        setMessages([...messages], err.message)
+      })
   }
 
   function addIngredientLine(e) {
