@@ -1,19 +1,17 @@
-import { FunctionComponent } from "react"; 
-// npm install prop - types
-// npm install - dev @types/prop-types
-import PropTypes from 'prop-types'
-import { useState } from "react";
-import { stringify } from "@firebase/util";
+import { useState, useContext } from "react";
 import { postRecipeData } from "./services";
 import { useUser } from 'reactfire';
+import { DataContext } from "../../app/Providers/DataProvider";
 
 
 export const Recipe = () => {
 
   const [form, setform] = useState(new FormData())
   const { status, data: user } = useUser();
+  const { regUser } = useContext(DataContext)
 
   const submitRecipe = (e) => {
+    console.log(regUser)
     e.preventDefault()
 
     // TODO: convert to form submission
@@ -27,7 +25,7 @@ export const Recipe = () => {
     form["category"] = document.querySelector('[name="category"]').value
     form["meal_types"] = document.querySelector('[name="mealTypes"]').value || null
     form["image"] = document.querySelector('[name="image"]').value
-    form["created_by"] = user.email
+    form["created_by"] = regUser.username
     let ing_names = document.querySelectorAll('[name="ingr-name"]')
     let qtys = document.querySelectorAll('[name="quantity"]')
     let uoms = document.querySelectorAll('[name="uom"]')
