@@ -1,13 +1,13 @@
 import { useEffect, useState, useContext } from 'react'
-import { Navigate } from 'react-router-dom'
-import { useAuth, useUser } from 'reactfire'
+import { Navigate, useNavigate } from 'react-router-dom'
+import { useUser } from 'reactfire'
 import { DataContext } from '../../app/Providers/DataProvider'
-import { UserNotFoundException } from '../../app/utils/exceptionTypes'
 
 const Register = () => {
 
   const { messages, setMessages } = useContext(DataContext)
   const { data: user } = useUser()
+  const { setIsLoggedIn } = useContext(DataContext)
   const [scheduleData, setScheduleData] = useState( {
     store_trip_method: '1',
     store_days_btwn: "7",
@@ -21,6 +21,7 @@ const Register = () => {
       email: user ? user.email : ''
   } )
   useEffect(() => { updateUser() }, [user])
+  const navigate = useNavigate()
 
   function updateUser() {
     if (user)
@@ -72,52 +73,59 @@ const Register = () => {
   const submit = async (e) => {
     e.preventDefault()
     console.log(userData)
-    await fetch('http://localhost:5000/api/v1/user/register', {
-      'method':'POST',
+    // REGISTER USER
+    const userId = await userRegistration(userData)
+
+    if (userId) await setSchedule(userId)
+  }
+
+  const userRegistration = async () => {
+    return await fetch('http://localhost:5000/api/v1/user/register', {
+      'method': 'POST',
       'body': JSON.stringify(userData),
-      headers: { 
+      headers: {
         'Content-Type': 'application/json'
         // ,'Access-Control-Allow-Origin': true
       }
     })
     .then(resp => {
-      if (resp.status !== 200) 
-        throw new UserNotFoundException('UserNotFoundException')
-      return resp.json()
+      if (resp.status === 200)
+        return resp.json()
+        else throw Error('user registration error')
     })
     .then(data => {
-      if (data?.message) {
-        setMessages([...messages, data.message])
-        throw new UserNotFoundException('UserNotFoundException')
-      }
+      // User SUCCESSFULY CREATED
+      setIsLoggedIn(true)
       let user = data.user
-      fetch(`http://localhost:5000/api/v1/schedule/${user.id}/create`, {
-        'method': 'POST',
-        'body': JSON.stringify(scheduleData),
-        headers: { 'Content-Type': 'application/json' }
-      })
-      .then(response => {
-        if (![200,201].includes(response.status)){
-          return response.json()}
-          else {
-            let message = "Something went wrong and your schedule is not set. Please go to your profile to get things to work properly"
-            setMessages([...messages, message])
-        }
-      })
-      .then(data => {
-        let message = "To modify it, open settings."
-        let dataMessage = data?.message || null
-        setMessages([...messages, message, dataMessage])
-      })
-        .catch(e => {
-          if (e?.message)
-            setMessages([...messages, e.message])
-}) // user error console
+      console.log(user)
+      return user.id      
     })
-    .catch(e => {
-      let errorMessage = e?.message || null 
-      let message = "Unable to register user. Please try again."
-      setMessages([...messages, message, errorMessage])      
+      .catch((e) => {
+        setMessages([...messages, "Registration error. Please try again."])
+        console.log(e)
+      })
+  } 
+  const setSchedule = async (id) => {
+    fetch(`http://localhost:5000/api/v1/schedule/${id}/create`, {
+      'method': 'POST',
+      'body': JSON.stringify(scheduleData),
+      headers: { 'Content-Type': 'application/json' }
+    })
+    .then(response => {
+      if (response.status === 201) 
+        response.json()
+      else throw Error('set schedule error')
+    }, (e) => { 
+      setMessages([...messages, "Error: Schedule not set. Open settings to set your schedule."])
+      console.log(e)
+    })
+    .then(() => {
+      let message = "Schedule created. To modify it, open settings."
+      setMessages([...messages, message])
+      navigate('/')
+    })
+    .catch (e => {
+      setMessages([...messages, "Unable to register user. Please try again."])
       console.log(e) // schedule error console
     })
   }
@@ -135,10 +143,10 @@ const Register = () => {
         <div>We know it's not always the same, but we can deal with that in a bit.</div>
         <div className="btn-group btn-group-toggle" data-toggle="buttons">
             <label className="btn btn-secondary">
-          <input type="radio" name="methodOptions" id="1" onChange={changeStoreTripMethod} /> The Same Day(s) Each Week
+          <input type="radio" name="methodOptions" id="1" onChange={changeStoreTripMethod} defaultChecked /> The Same Day(s) Each Week
             </label>
             <label className="btn btn-secondary active">
-              <input type="radio" name="methodOptions" id="2" defaultChecked onChange={changeStoreTripMethod}/> After a Number of Days
+              <input type="radio" name="methodOptions" id="2" onChange={changeStoreTripMethod}/> After a Number of Days
             </label>
             { scheduleData.store_trip_method === "1" ? 
             <div className="days-box">                

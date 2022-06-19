@@ -1,14 +1,14 @@
 import React, { useContext } from 'react';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAuth, useUser } from 'reactfire';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
 import { DataContext } from '../../Providers/DataProvider';
-import { UserNotFoundException } from '../../utils/exceptionTypes';
 
 const Navbar = () => {
   const auth = useAuth()
   const {status, data: user} = useUser()
   const {setRegUser} = useContext(DataContext)
+  const {setIsLoggedIn} = useContext(DataContext)
   const {messages} = useContext(DataContext)
   const navigate = useNavigate()
 
@@ -19,24 +19,22 @@ const Navbar = () => {
       console.log(u) 
       let url = `http://localhost:5000/api/v1/user/email`
       await fetch(`${url}/${u.user.email}`)
-        .then(data =>{ 
-          if (data.status !== 200) {
-            throw new UserNotFoundException('UserNotFoundException')
+        .then(response => { 
+          if (response.ok) {
+            return response.json()
           } else {
-            console.log('navbar data (no json)',data)
-            data = data.json()
-            console.log('navbar data (json w/in else)',data)
-            return data
+            throw new Error('User Not Found')
           }
         })
         .then((data) => {
           setRegUser({ id: data.id, username: data.username})
+          setIsLoggedIn(true)
           navigate('/')
-      })
-      .catch((e) => {
-        console.log(e)
-        navigate('register')
-      })     
+        })
+        .catch(e => {
+          console.log(e)
+          navigate('register')
+        })
     }    
   }
 
