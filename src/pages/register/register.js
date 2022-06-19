@@ -6,6 +6,7 @@ import { DataContext } from '../../app/Providers/DataProvider'
 const Register = () => {
 
   const { messages, setMessages } = useContext(DataContext)
+  const { regUser, setRegUser } = useContext(DataContext)
   const { data: user } = useUser()
   const { setIsLoggedIn } = useContext(DataContext)
   const [scheduleData, setScheduleData] = useState( {
@@ -96,9 +97,9 @@ const Register = () => {
     .then(data => {
       // User SUCCESSFULY CREATED
       setIsLoggedIn(true)
-      let user = data.user
-      console.log(user)
-      return user.id      
+      console.log('data',data)
+      setRegUser({ id: data.user.id, username: data.user.username, 'access-token': data.user['access-token']})
+      return data.user.id      
     })
       .catch((e) => {
         setMessages([...messages, "Registration error. Please try again."])

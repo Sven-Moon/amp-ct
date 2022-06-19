@@ -8,12 +8,10 @@ import { RecipeBox } from '../pages/recipeBox/RecipeBox';
 import { Account } from '../pages/account/Account';
 import Donate from '../pages/donate/Donate';
 import Register from '../pages/register/register';
+import GetRegUser from './components/getRegUser/getRegUser'
 import Protected from './components/Protected';
-import { useContext } from 'react';
-import { DataContext } from './Providers/DataProvider';
 
 function App() {
-  const {isLoggedIn} = useContext(DataContext)
   return (
     <React.Fragment>
       <Navbar />
@@ -21,12 +19,10 @@ function App() {
         <Route children path='/account' element={<Account />}></Route>
         <Route children path='/register' element={<Register />}></Route>
         <Route children path='/recipe' 
-        element={
-          <Protected isLoggedIn={isLoggedIn}>
-            <Recipe />
-          </Protected>          
-        }></Route>
+        element={<Protected><Recipe /></Protected>}>          
+        </Route>
         <Route children path='/donate' element={<Donate />}></Route>
+        <Route children path='/getreguser' element={<GetRegUser />}></Route>
         <Route children path='/recipe-box' element={<RecipeBox />}></Route>
         <Route children path='/' element={<Dashboard/>}></Route>
       </Routes>

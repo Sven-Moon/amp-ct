@@ -3,7 +3,11 @@ import { useState, createContext } from 'react'
 
 const DataProvider = (props) => {
 
-  const [regUser, setRegUser] = useState({ id: '', username: '' })
+  const [regUser, setRegUser] = useState({ 
+    'id': '', 
+    'username': '', 
+    'access-token': ''
+  })
   const [messages, setMessages] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
 

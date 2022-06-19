@@ -17,7 +17,7 @@ const Navbar = () => {
     let u = await signInWithPopup(auth, provider)   
     if (u) {
       console.log(u) 
-      let url = `http://localhost:5000/api/v1/user/email`
+      let url = `http://localhost:5000/api/v1/user/reg`
       await fetch(`${url}/${u.user.email}`)
         .then(response => { 
           if (response.ok) {
@@ -27,7 +27,11 @@ const Navbar = () => {
           }
         })
         .then((data) => {
-          setRegUser({ id: data.id, username: data.username})
+          console.log('data (nav)',data)
+          setRegUser({ id: data.user.id,
+            username: data.user.username, 
+            'access-token': data.user['access-token']
+            })
           setIsLoggedIn(true)
           navigate('/')
         })
@@ -40,6 +44,12 @@ const Navbar = () => {
 
   const sign_out = async () => {
     await signOut(auth)
+    setIsLoggedIn(false)
+    setRegUser({
+      'id': '',
+      'username': '',
+      'access-token': ''
+    })
     navigate('/')
     console.log('signed user out', user) 
   }

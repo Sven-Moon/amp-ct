@@ -139,7 +139,7 @@ export const Recipe = () => {
               <input type="text" name="ingr-name" />
 
               <label htmlFor="quantity">Qty</label>
-              <input type="number" name="quantity" id="quantity" data-qty="0" />
+              <input type="text" name="quantity" id="quantity" data-qty="0" />
 
               <label htmlFor="uom">Meas.</label>
               <input type="text" name="uom" id="uom" />
