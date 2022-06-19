@@ -4,12 +4,11 @@ import { useState, createContext } from 'react'
 const DataProvider = (props) => {
 
   const [regUser, setRegUser] = useState({ 
-    'id': '', 
-    'username': '', 
-    'access-token': ''
+    'id': '', 'username': '', 'access-token': ''
   })
   const [messages, setMessages] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [filters, setFilters] = useState(false)
 
   let appState = {
     'regUser': regUser, 
@@ -17,7 +16,9 @@ const DataProvider = (props) => {
     'messages': messages, 
     'setMessages': setMessages,
     'isLoggedIn': isLoggedIn,
-    'setIsLoggedIn': setIsLoggedIn    
+    'setIsLoggedIn': setIsLoggedIn,
+    'filters': filters,
+    'setFilters': setFilters,
   }
 
   return (

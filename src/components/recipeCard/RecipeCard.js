@@ -1,7 +1,7 @@
 import { useContext } from "react";
 import { DataContext } from "../../app/Providers/DataProvider";
 
-const RecipeCardSm = (props) => {
+const RecipeCard = (props) => {
 
   const DATE_OPTIONS = {
     weekday: 'short',
@@ -29,4 +29,4 @@ const RecipeCardSm = (props) => {
   
 }
 
-export default RecipeCardSm
+export default RecipeCard

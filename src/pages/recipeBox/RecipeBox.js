@@ -1,32 +1,31 @@
-
-import { useContext } from "react";
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import { DataContext } from "../../app/Providers/DataProvider";
 import RecipeCardSm from '../../components/recipeCardSm/RecipeCardSm'
 
 
-export const RecipeBox = () => {
+const RecipeBox = () => {
   
   const { regUser, setRegUser } = useContext(DataContext)
   const { messages, setMessages } = useContext(DataContext)
-  const [ userRecipes, setUserRecipes ] = useState([])
+  const [ recipes, setRecipes ] = useState([])
   const [ filters, setFilters ] = useState({
-    user: regUser.username,
-    time: null,
-    category: null,
+    created_by: regUser.username,
+    prep_time: null,
+    cook_time: null,
+    categories: null,
     meal_types: '123',
-    last_made: null,
+    last_made: null, // pass a number of days (2w = 14d, etc)
     rating: null,
     average_cost_rating: '123'
   })
 
-  useEffect(() => { getUserRecipes()}, [filters])
+  useEffect(() => { getRecipes()}, [])
   
-  const getUserRecipes = async () => {
-    let url = 'http://localhost:5000/api/v1/recipes'
+  const getRecipes = async () => {
+    let url = 'http://localhost:5000/api/v1/recipes/search'
     let options = {
       method: 'POST', 
-      body: filters,
+      body: JSON.stringify(filters),
       headers: { 'Content-Type': 'application/json' }
     }
     fetch(url,options)
@@ -35,8 +34,9 @@ export const RecipeBox = () => {
       else throw Error('Could not find recipes with that username')
     })
     .then(data => {
+      console.log(data.recipes)
       // data = { recipes: [{recipe}] }
-      setUserRecipes(userRecipes.concat(data.recipes) )
+      setRecipes(data.recipes)      
     })
     .catch((e) => {
       setMessages([...messages], e.message)
@@ -48,7 +48,6 @@ export const RecipeBox = () => {
     console.log('clicked filters!')
   }
 
-
   return (
     <>
       <h1>Recipe Box</h1>
@@ -56,13 +55,11 @@ export const RecipeBox = () => {
         <div className="filters" onClick={showFilters}>Filters</div>
       </div>
       <div className="recipes_box">
-        { userRecipes ?
-        userRecipes.map((r,i) => <RecipeCardSm />)
-        : null
-         }
+        { recipes 
+          ? recipes.map((r, i) => <RecipeCardSm r={r} i={i} u={regUser.username} />)
+        : null }
       </div>
     </>
-
   );
 }
 
