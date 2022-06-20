@@ -7,7 +7,7 @@ import RecipeFilters from "../../components/recipeFilters/recipeFilters";
 
 const RecipeBox = () => {
   
-  const { regUser, setRegUser } = useContext(DataContext)
+  const { regUser,  } = useContext(DataContext)
   const { messages, setMessages } = useContext(DataContext)
   const [ recipes, setRecipes ] = useState([])
   const { filters, setFilters } = useContext(DataContext)

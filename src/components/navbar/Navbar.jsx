@@ -3,13 +3,14 @@ import { Link, useNavigate } from 'react-router-dom';
 import { useAuth, useUser } from 'reactfire';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
 import { DataContext } from '../../app/Providers/DataProvider';
+import { useEffect } from 'react';
 
 const Navbar = () => {
   const auth = useAuth()
   const {status, data: user} = useUser()
   const {setRegUser} = useContext(DataContext)
-  const {setIsLoggedIn} = useContext(DataContext)
-  const {messages} = useContext(DataContext)
+  const { isLoggedIn, setIsLoggedIn} = useContext(DataContext)
+  const { messages, setMessages } = useContext(DataContext)
   const navigate = useNavigate()
 
   const sign_in = async () => {
@@ -52,6 +53,34 @@ const Navbar = () => {
     })
     navigate('/')
     console.log('signed user out', user) 
+  }
+
+  useEffect(() => { 
+    if (user && !isLoggedIn) 
+      getRegUser()
+    }, [user]
+  )
+
+  const getRegUser = async () => {
+    await fetch(`http://localhost:5000/api/v1/user/reg/${user.email}`)
+      .then(resp => {
+        if (resp.ok) return resp.json()
+        else throw new Error('User not registered')
+      })
+      .then(data => {
+        setRegUser({
+          id: data.user.id,
+          username: data.user.username,
+          'access-token': data.user['access-token']
+        })
+        setIsLoggedIn(true)
+        navigate('/')
+      })
+      .catch((e) => {
+        setMessages([...messages, 'could not find user in registered users'])
+        console.log(e)
+        navigate('/register')
+      })
   }
 
   const displayMessages = (m,i) =>  {
