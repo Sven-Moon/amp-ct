@@ -7,7 +7,6 @@ import CardMedia from '@mui/material/CardMedia';
 import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
-import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
@@ -18,6 +17,7 @@ import CategoryIcon from '../categoryIcon/CategoryIcon';
 import { useState } from 'react';
 import { List, ListItem, ListItemIcon, Stack } from '@mui/material';
 import TimeIcon from '../timeIcon/TimeIcon';
+import AddBoxIcon from '@mui/icons-material/AddBox';
 
 const RecipeCardSm = ({ r }) => {
 
@@ -54,6 +54,7 @@ const RecipeCardSm = ({ r }) => {
             </IconButton>
           }
           title={r.name}
+          subheader={`By: ${r.created_by}`}
         />
         <CardMedia
           component="img"
@@ -71,8 +72,8 @@ const RecipeCardSm = ({ r }) => {
           </Stack>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="add to favorites">
-            <FavoriteIcon />
+          <IconButton aria-label="Add to Recipe Box">
+            <AddBoxIcon />
           </IconButton>
           <IconButton aria-label="share">
             <ShareIcon />

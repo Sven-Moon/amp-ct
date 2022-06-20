@@ -92,7 +92,7 @@ const Register = () => {
     .then(resp => {
       if (resp.status === 200)
         return resp.json()
-        else throw Error('user registration error')
+        else throw Error('A registration error has occurred')
     })
     .then(data => {
       // User SUCCESSFULY CREATED
@@ -103,7 +103,7 @@ const Register = () => {
     })
       .catch((e) => {
         setMessages([...messages, "Registration error. Please try again."])
-        console.log(e)
+        console.error('There\'s a problem.', e)
       })
   } 
   const setSchedule = async (id) => {

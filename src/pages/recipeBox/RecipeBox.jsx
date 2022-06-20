@@ -24,30 +24,60 @@ const RecipeBox = () => {
   const hideFilters = () => setOpen(false);
   
 
-  useEffect(() => { setFilters({...filters, created_by:regUser.username}) }, [regUser])
+  useEffect(() => { setFilters({...filters, username:regUser.username}) }, [regUser])
   useEffect(() => { getRecipes()}, [regUser, filters])
   
   const getRecipes = async () => {
+    if (filters.userRecipes) getRegUserRecipes()
+    else getOthersRecipes()
+  }
+
+  const getRegUserRecipes = async () => {
     console.log('filters:', filters)
-    let url = 'http://localhost:5000/api/v1/recipes/search'
+    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}`
     let options = {
-      method: 'POST', 
+      method: 'POST',
       body: JSON.stringify(filters),
       headers: { 'Content-Type': 'application/json' }
     }
-    fetch(url,options)
-    .then(resp => {
-      if (resp.ok) return resp.json()
-      else throw Error('Could not find recipes with that username')
-    })
-    .then(data => {
-      console.log(data.recipes)
-      // data = { recipes: [{recipe}] }
-      setRecipes(data.recipes)      
-    })
-    .catch((e) => {
-      setMessages([...messages], e.message)
-    })
+    fetch(url, options)
+      .then(resp => {
+        if (resp.ok) return resp.json()
+        else throw Error('Could not find recipes with that username')
+      })
+      .then(data => {
+        setRecipes(data.recipes)
+      })
+      .catch((e) => {
+        setMessages([...messages], e.message)
+      })
+
+  }
+  const getOthersRecipes = async () => {
+    console.log('filters:', filters)
+    let url = 'http://localhost:5000/api/v1/recipes/search'
+    let options = {
+      method: 'POST',
+      body: JSON.stringify(filters),
+      headers: { 'Content-Type': 'application/json' }
+    }
+    fetch(url, options)
+      .then(resp => {
+        if (resp.ok) return resp.json()
+        else throw Error('Could not find recipes with that username')
+      })
+      .then(data => {
+        console.log(data.recipes)
+        // data = { recipes: [{recipe}] }
+        setRecipes(data.recipes)
+      })
+      .catch((e) => {
+        setMessages([...messages], e.message)
+      })
+
+  }
+  const addToRecipebox = async () => {
+
   }
 
   const openFullRecipe = (e) => {
@@ -69,7 +99,7 @@ const RecipeBox = () => {
         <Modal open={open} onClose={hideFilters}>
           <RecipeFilters/>
         </Modal>
-        <Button onClick={toggleUserRecipes}>Find More Like This</Button>
+        <Button onClick={toggleUserRecipes}>{filters.userRecipes ? 'Find More Like This': 'Back to My Recipes'}</Button>
       <div className="recipes_box">
         { recipes 
           ? recipes.map((r, i) => <RecipeCardSm r={r} i={i} u={regUser.username}/> )
