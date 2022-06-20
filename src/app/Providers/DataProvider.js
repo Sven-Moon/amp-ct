@@ -16,7 +16,8 @@ const DataProvider = (props) => {
     meal_types: '123',
     last_made: null, // pass a number of days (2w = 14d, etc)
     rating: null,
-    average_cost_rating: '123'
+    average_cost_rating: '123', 
+    userRecipes: true
   })
 
   let appState = {
@@ -27,7 +28,7 @@ const DataProvider = (props) => {
     'isLoggedIn': isLoggedIn,
     'setIsLoggedIn': setIsLoggedIn,
     'filters': filters,
-    'setFilters': setFilters,
+    'setFilters': setFilters
   }
 
   return (

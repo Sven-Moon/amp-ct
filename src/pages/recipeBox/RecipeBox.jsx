@@ -1,4 +1,4 @@
-import { Button, Modal } from "@mui/material";
+import { Box, Button, Modal, Stack } from "@mui/material";
 import { useState, useEffect, useContext } from "react";
 import { DataContext } from "../../app/Providers/DataProvider";
 import RecipeCardSm from '../../components/recipeCardSm/RecipeCardSm'
@@ -57,23 +57,25 @@ const RecipeBox = () => {
     // <RecipeCard r={r} />
 
   }
+  const toggleUserRecipes = () => {
+    setFilters({...filters, userRecipes: !filters.userRecipes})
+  }
 
   return (
-    <>
+    <Box>
       <h1>Recipe Box</h1>
-      <div className="filters-box">
-        <div className="filters" onClick={showFilters}>Filters</div>
+      <Stack direction="row" justify-content="space-around"></Stack>
         <Button onClick={showFilters}>Filters</Button>
         <Modal open={open} onClose={hideFilters}>
           <RecipeFilters/>
         </Modal>
-      </div>
+        <Button onClick={toggleUserRecipes}>Find More Like This</Button>
       <div className="recipes_box">
         { recipes 
           ? recipes.map((r, i) => <RecipeCardSm r={r} i={i} u={regUser.username}/> )
-        : null }
+        : 'No Results matching search' }
       </div>
-    </>
+    </Box>
   );
 }
 

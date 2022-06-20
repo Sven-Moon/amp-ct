@@ -19,7 +19,7 @@ import { useState } from 'react';
 import { List, ListItem, ListItemIcon, Stack } from '@mui/material';
 import TimeIcon from '../timeIcon/TimeIcon';
 
-const RecipeCardSm = (props) => {
+const RecipeCardSm = ({ r }) => {
 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -38,9 +38,6 @@ const RecipeCardSm = (props) => {
     month: 'short',
     day: 'numeric'
   }
-  console.log(props)
-  const { r, i, u } = props
-  console.log(r)
 
   const [expanded, setExpanded] = useState(false);
 
