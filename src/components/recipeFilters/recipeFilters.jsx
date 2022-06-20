@@ -1,3 +1,4 @@
+import { Input } from "@mui/material"
 import { useContext } from "react"
 
 
@@ -9,7 +10,8 @@ const RecipeFilters = () => {
     <div className="filter_box">
       <fieldset>
         <legend>Time</legend>
-        l
+        <Input defaultValue="30" label="Total time"/>
+        <Input defaultValue="chicken" label="Meat option"/>
       </fieldset>
     </div>
   )

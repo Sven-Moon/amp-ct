@@ -3,7 +3,7 @@ import { Navigate } from 'react-router-dom'
 import { useUser } from 'reactfire'
 import { DataContext } from '../app/Providers/DataProvider'
 
-const Protected = ({next, children}) => {
+const Protected = ({children}) => {
   const { data: user } = useUser()
   const { isLoggedIn } = useContext(DataContext)
 
@@ -11,7 +11,6 @@ const Protected = ({next, children}) => {
   if (!user) 
     return <Navigate to="/login" replace />  
   else if (!isLoggedIn) {
-    console.log('protected next', next)
     return <Navigate to="/getreguser" replace />
   } else 
     return children

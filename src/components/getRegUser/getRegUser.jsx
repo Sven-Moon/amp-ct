@@ -16,14 +16,12 @@ const GetRegUser = () => {
   const navigate = useNavigate()
 
   const getRegUser = async () => {
-    console.log('fetching data')
     await fetch(`http://localhost:5000/api/v1/user/reg/${user.email}`)
       .then(resp => {
         if (resp.ok) return resp.json()
         else throw new Error('User not registered')
       })
       .then(data => {
-        console.log('getReg:',data)
         setRegUser({
           id: data.user.id,
           username: data.user.username,

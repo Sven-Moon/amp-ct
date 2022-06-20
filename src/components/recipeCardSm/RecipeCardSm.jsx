@@ -9,16 +9,11 @@ import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
-import Typography from '@mui/material/Typography';
-import { red } from '@mui/material/colors';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CircleIcon from '@mui/icons-material/Circle';
-
-import Button from '@mui/material/Button';
-import AcUnitIcon from '@mui/icons-material/AcUnit';
 import CategoryIcon from '../categoryIcon/CategoryIcon';
 import { useState } from 'react';
 import { List, ListItem, ListItemIcon, Stack } from '@mui/material';
@@ -54,13 +49,8 @@ const RecipeCardSm = (props) => {
   };
 
   return (
-      <Card sx={{ maxWidth: 550 }}>
+      <Card variant='outlined' sx={{ maxWidth: 550 }}>
         <CardHeader
-          avatar={
-            <Avatar sx={{ bgcolor: red[500] }} aria-label="recipe">
-              R
-            </Avatar>
-          }
           action={
             <IconButton aria-label="settings">
               <MoreVertIcon />
@@ -103,7 +93,7 @@ const RecipeCardSm = (props) => {
           <CardContent>
             <List>
             {r.ingredients.map(ingredient => <ListItem disablePadding>
-              <ListItemIcon><CircleIcon /></ListItemIcon>{ingredient}</ListItem>)}
+              <ListItemIcon><CircleIcon /></ListItemIcon>{ingredient.name}</ListItem>)}
             </List>            
           </CardContent>
         </Collapse>
