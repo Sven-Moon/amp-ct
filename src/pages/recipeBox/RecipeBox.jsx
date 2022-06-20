@@ -43,6 +43,14 @@ const RecipeBox = () => {
     })
   }
 
+  const openFullRecipe = (e) => {
+    e.preventDefault()
+    // open a modal 
+    // display the recipe information
+    // <RecipeCard r={r} />
+
+  }
+
   function showFilters(e) {
     e.preventDefualt()
     console.log('clicked filters!')
