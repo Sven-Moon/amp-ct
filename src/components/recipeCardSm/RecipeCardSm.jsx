@@ -18,6 +18,9 @@ import { useState } from 'react';
 import { List, ListItem, ListItemIcon, Stack } from '@mui/material';
 import TimeIcon from '../timeIcon/TimeIcon';
 import AddBoxIcon from '@mui/icons-material/AddBox';
+import { useContext } from 'react';
+import { DataContext } from '../../app/Providers/DataProvider';
+import { json } from 'docker/src/languages';
 
 const RecipeCardSm = ({ r }) => {
 
@@ -31,6 +34,8 @@ const RecipeCardSm = ({ r }) => {
       duration: theme.transitions.duration.shortest,
     }),
   }));
+  const { regUser } = useContext(DataContext)
+  const { messages, setMessages } = useContext(DataContext)
 
   const DATE_OPTIONS = {
     weekday: 'short',
@@ -44,6 +49,23 @@ const RecipeCardSm = ({ r }) => {
   const handleExpandClick = () => {
     setExpanded(!expanded);
   };
+
+  const addToRecipebox = async () => {
+    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}/add/${r.id}`
+    let options = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify ({
+        "scheduled": true, "fixed_schedule": false, "fixed_period": 14
+      })
+    }
+    fetch(url, options)
+    .then(resp => {
+      if (resp.ok) setMessages([...messages], 'Recipe added to Recipe Box')
+      else throw Error('Could not add recipe to Recipe Box')
+    })
+    .catch(e => setMessages([...messages], e))
+  }
 
   return (
       <Card variant='outlined' sx={{ maxWidth: 550 }}>
@@ -73,7 +95,7 @@ const RecipeCardSm = ({ r }) => {
         </CardContent>
         <CardActions disableSpacing>
           <IconButton aria-label="Add to Recipe Box">
-            <AddBoxIcon />
+          <AddBoxIcon onClick={addToRecipebox} />
           </IconButton>
           <IconButton aria-label="share">
             <ShareIcon />

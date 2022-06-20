@@ -33,7 +33,7 @@ const RecipeBox = () => {
   }
 
   const getRegUserRecipes = async () => {
-    console.log('filters:', filters)
+    console.log('user-filters:', filters)
     let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}`
     let options = {
       method: 'POST',
@@ -54,7 +54,7 @@ const RecipeBox = () => {
 
   }
   const getOthersRecipes = async () => {
-    console.log('filters:', filters)
+    console.log('other-filters:', filters)
     let url = 'http://localhost:5000/api/v1/recipes/search'
     let options = {
       method: 'POST',
@@ -74,9 +74,6 @@ const RecipeBox = () => {
       .catch((e) => {
         setMessages([...messages], e.message)
       })
-
-  }
-  const addToRecipebox = async () => {
 
   }
 
