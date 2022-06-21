@@ -1,9 +1,9 @@
 import { borderRadius } from "@mui/system"
 
-const CategoryIcon = (props) => {
+const CategoryIcon = ({ kind, size }) => {
 
-  let {kind, size} = props
   kind = kind.toLowerCase()
+  size = size || "md"
   const p = {
     beef: {
       text: "B",

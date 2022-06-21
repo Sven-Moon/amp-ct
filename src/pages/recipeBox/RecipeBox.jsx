@@ -2,6 +2,7 @@ import { Box, Button, Modal, Stack } from "@mui/material";
 import { useState, useEffect, useContext } from "react";
 import { DataContext } from "../../app/Providers/DataProvider";
 import RecipeCardSm from '../../components/recipeCardSm/RecipeCardSm'
+import UserRecipeCardSm from '../../components/recipeCardSm/UserRecipeCardSm'
 import RecipeFilters from "../../components/recipeFilters/recipeFilters";
 
 
@@ -31,7 +32,6 @@ const RecipeBox = () => {
     if (filters.userRecipes) getRegUserRecipes()
     else getOthersRecipes()
   }
-
   const getRegUserRecipes = async () => {
     console.log('user-filters:', filters)
     let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}`
@@ -76,7 +76,6 @@ const RecipeBox = () => {
       })
 
   }
-
   const openFullRecipe = (e) => {
     e.preventDefault()
     // open a modal 
@@ -89,7 +88,7 @@ const RecipeBox = () => {
   }
 
   return (
-    <Box>
+    <Box scroll="paper">
       <h1>Recipe Box</h1>
       <Stack direction="row" justify-content="space-around"></Stack>
         <Button onClick={showFilters}>Filters</Button>
@@ -99,8 +98,11 @@ const RecipeBox = () => {
         <Button onClick={toggleUserRecipes}>{filters.userRecipes ? 'Find More Like This': 'Back to My Recipes'}</Button>
       <div className="recipes_box">
         { recipes 
-          ? recipes.map((r, i) => <RecipeCardSm r={r} i={i} u={regUser.username}/> )
-        : 'No Results matching search' }
+          ? recipes.map((r, i) => { 
+            return filters.userRecipes 
+            ? <UserRecipeCardSm r={r} i={i} u={regUser.username} />
+            : <RecipeCardSm r={r} i={i} u={regUser.username}/>} )
+          : 'No Results matching search' }
       </div>
     </Box>
   );

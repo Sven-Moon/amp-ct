@@ -8,7 +8,6 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -17,10 +16,10 @@ import CategoryIcon from '../categoryIcon/CategoryIcon';
 import { useState } from 'react';
 import { List, ListItem, ListItemIcon, Stack } from '@mui/material';
 import TimeIcon from '../timeIcon/TimeIcon';
-import AddBoxIcon from '@mui/icons-material/AddBox';
+import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox'; 
 import { useContext } from 'react';
 import { DataContext } from '../../app/Providers/DataProvider';
-import { json } from 'docker/src/languages';
+import { pink } from '@mui/material/colors';
 
 const RecipeCardSm = ({ r }) => {
 
@@ -50,19 +49,18 @@ const RecipeCardSm = ({ r }) => {
     setExpanded(!expanded);
   };
 
-  const addToRecipebox = async () => {
-    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}/add/${r.id}`
+  const removeFromRecipebox = async () => {
+    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}/remove/${r.id}`
     let options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify ({
-        "scheduled": true, "fixed_schedule": false, "fixed_period": 14
-      })
+      body: JSON.stringify ({})
     }
     fetch(url, options)
     .then(resp => {
-      if (resp.ok) setMessages([...messages], 'Recipe added to Recipe Box')
-      else throw Error('Could not add recipe to Recipe Box')
+      // TODO: add undo
+      if (resp.ok) setMessages([...messages], 'Recipe was removed from Recipe Box')
+      else throw Error('Could not remove recipe from Recipe Box')
     })
     .catch(e => setMessages([...messages], e))
   }
@@ -94,8 +92,8 @@ const RecipeCardSm = ({ r }) => {
           </Stack>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="Add to Recipe Box">
-          <AddBoxIcon color="primary" onClick={addToRecipebox} />
+          <IconButton aria-label="Remove Recipe">
+          <IndeterminateCheckBoxIcon sx={{ color: pink[500] }} onClick={removeFromRecipebox} />
           </IconButton>
           <IconButton aria-label="share">
             <ShareIcon />
