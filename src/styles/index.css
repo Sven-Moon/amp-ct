@@ -140,6 +140,10 @@ button {
   font-family: "Roboto", sans-serif;
 }
 
+root {
+  width: 100vw;
+}
+
 .btn {
   display: inline-block;
   font-weight: 400;

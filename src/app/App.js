@@ -11,11 +11,16 @@ import Register from '../pages/register/register';
 import GetRegUser from '../components/getRegUser/getRegUser'
 import Protected from '../components/Protected';
 import MealPlan from '../pages/mealPlan/mealPlan';
+import BottomNav from '../components/BottomNav'
+import { Paper } from '@mui/material';
+import { Container } from '@mui/system';
+import Navbar2 from '../components/Navbar2'
 
 function App() {
   return (
-    <React.Fragment>
-      <Navbar />
+    < >
+      <Navbar2/>
+      <Container>
       <Routes>
         <Route children path='/account' element={<Account />}></Route>
         <Route children path='/register' element={<Register />}></Route>
@@ -32,7 +37,9 @@ function App() {
         </Protected>} ></Route>
         <Route children path='/' element={<Dashboard/>}></Route>
       </Routes>
-    </React.Fragment>
+      </Container>
+      <BottomNav />
+    </>
   );
 }
 

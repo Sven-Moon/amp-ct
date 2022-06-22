@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, InputLabel, MenuItem, Select, Stack, Switch, TextField } from "@mui/material";
+import { Button, ButtonGroup, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, InputLabel, MenuItem, Paper, Select, Stack, Switch, TextField } from "@mui/material";
 import { useState, useContext } from "react";
 import { useUser } from 'reactfire';
 import { DataContext } from "../../app/Providers/DataProvider";
@@ -7,6 +7,7 @@ import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrow
 import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
 import AddCircleIcon from '@mui/icons-material/AddCircle';
 import { red } from '@mui/material/colors';
+import { Box } from "@mui/system";
 
 export const Recipe = () => {
 
@@ -159,7 +160,7 @@ export const Recipe = () => {
   const error = [breakfast, lunch, dinner].filter((v) => v).length < 1;
 
   return (
-    <div className="form-container">
+    <Box display={'flex'} elevation={1} justifyContent={'center'} className="form-container">
       <form onSubmit={submitRecipe} id="recipeForm">
       
       <Stack spacing={2}>
@@ -280,7 +281,7 @@ export const Recipe = () => {
         <Button type="submit">Submit Recipe</Button>
         </Stack>
       </form>
-    </div>
+    </Box>
   );
 }
 
