@@ -61,9 +61,6 @@ const Day = ({day}) => {
           <Meal r={dinner} m="D" />
         </Stack>
       </CardContent>
-      <CardActions>
-        <Button size="small">Learn More</Button>
-      </CardActions>
     </Card>
   )
 }

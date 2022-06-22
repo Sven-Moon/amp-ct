@@ -1,4 +1,4 @@
-import { Container } from "@mui/material"
+import { Button, Container, Paper } from "@mui/material"
 import { Box } from "@mui/system"
 import { useContext } from "react"
 import { useEffect, useState } from "react"
@@ -44,15 +44,18 @@ const MealPlan = () => {
 
   return (
     <Container>
-    hello
-      <Box>
-      { mealPlan[0] ? 
-          mealPlan.map((day, i) => { 
-            {console.log('day', day)}
-            return <Day key={i} day={day} /> })
-      : null }
-      </Box>
+      <Button ml="auto" size="small">+ Store Trip</Button>
+      <Paper style={{ overflow: 'auto' }}>
+        <Box>
+        { mealPlan[0] ? 
+            mealPlan.map((day, i) => { 
+              {console.log('day', day)}
+              return <Day key={i} day={day} /> })
+        : null }
+        </Box>
+      </Paper>
     </Container>
+    
   )
 }
 

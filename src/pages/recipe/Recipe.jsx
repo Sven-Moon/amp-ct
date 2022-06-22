@@ -1,14 +1,19 @@
+import { Button, ButtonGroup, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, InputLabel, MenuItem, Select, Stack, Switch, TextField } from "@mui/material";
 import { useState, useContext } from "react";
 import { useUser } from 'reactfire';
 import { DataContext } from "../../app/Providers/DataProvider";
-
+import RemoveCircleIcon from '@mui/icons-material/RemoveCircle';
+import KeyboardDoubleArrowDownIcon from '@mui/icons-material/KeyboardDoubleArrowDown';
+import KeyboardDoubleArrowUpIcon from '@mui/icons-material/KeyboardDoubleArrowUp';
+import AddCircleIcon from '@mui/icons-material/AddCircle';
+import { red } from '@mui/material/colors';
 
 export const Recipe = () => {
 
   const [form, setform] = useState(new FormData())
-  const { status, data: user } = useUser();
   const { regUser } = useContext(DataContext)
   const { messages, setMessages } = useContext(DataContext)
+  const [ingredientCount, setIngredientCount] = useState([0])
 
   const submitRecipe = (e) => {
     console.log(regUser)
@@ -23,7 +28,7 @@ export const Recipe = () => {
     form["cook_time"] = document.querySelector('[name="cookTime"]').value || null
     form["instructions"] = document.querySelector('[name="instructions"]').value
     form["meat_options"] = document.querySelector('[name="meat_options"]').value
-    form["meal_types"] = document.querySelector('[name="mealTypes"]').value || null
+    form["meal_types"] = mealType
     form["image"] = document.querySelector('[name="image"]').value || null
     form["created_by"] = regUser.username
     let ing_names = document.querySelectorAll('[name="ingr-name"]')
@@ -70,113 +75,210 @@ export const Recipe = () => {
     document.getElementById('recipeForm').reset()
   }
 
+  function IngredientGroup({i}) {
+    return (
+      <FormGroup id="ingredient-group_0" data-ingr-index={i} className="ingredient">
+        <TextField
+          name={"ingr-name_"+i}
+          label="Name"
+          variant="filled"
+          defaultValue={null}
+          type="text"
+          required
+        ></TextField>
+        <TextField
+          name={"quantity_"+i}
+          label="Quantity"
+          variant="filled"
+          defaultValue={null}
+          type="text"
+        ></TextField>
+        <TextField
+          name={"uom_"+i}
+          label="Unit of Measure"
+          variant="filled"
+          defaultValue={null}
+          type="text"
+        ></TextField>
+        <Stack direction="row" justifyContent={'space-around'}>
+          <Button data-ingr-index={i} className="addIngredient" color="success" type="button" data-add_btn-index={i} onClick={addIngredientLine}>
+            <KeyboardDoubleArrowDownIcon data-ingr-index={i} />
+            <AddCircleIcon data-ingr-index={i} />
+          </Button>
+          <Button data-ingr-index={i} className="removeIngredient" sx={{ color: red[700] }} type="button" onClick={removeIngredientLine}>
+            <RemoveCircleIcon data-ingr-index={i} />
+            <KeyboardDoubleArrowUpIcon data-ingr-index={i} />
+          </Button>
+        </Stack>
+      </FormGroup>
+    )
+  }
+
   function addIngredientLine(e) {
     e.preventDefault()
-    let i = parseInt(e.target.parentNode.dataset.ingrIndex)
-    const ingredientsNode = document.querySelector('#ingredients')
-    const node = document.createElement("div")
-    node.className = "ingredient"
-    node.setAttribute("data-ingr-index",i+1)
-    node.innerHTML = `
-      <label htmlFor="name">Name</label>
-      <input type="text" name="ingr-name"/>
+    let new_val = [...ingredientCount]
+    new_val.push(ingredientCount.length)
+    console.log(new_val)
+    setIngredientCount(new_val)
 
-      <label htmlFor="quantity">Qty</label>
-      <input type="text" name="quantity"  data-qty="${i + 1}"/>
-
-      <label htmlFor="uom">Meas.</label>
-      <input type="text" name="uom" />`
-
-    let addButton = document.createElement("button")
-    addButton.className = "addIngredient"
-    addButton.onclick = addIngredientLine
-    addButton.innerHTML = "+"
-    node.appendChild(addButton)
-
-    let removeButton = document.createElement("button")
-    removeButton.className = "addIngredient"
-    removeButton.onclick = removeIngredientLine
-    removeButton.innerHTML = "-"
-
-    node.appendChild(removeButton)
-    ingredientsNode.appendChild(node)
-
-    reorderIngredientIndices()
+    // reorderIngredientIndices()
   }
 
   function removeIngredientLine(e) {
     e.preventDefault()
-    let i = parseInt(e.target.parentNode.dataset.ingrIndex)
-    document.querySelector(`[data-ingr-index="${i}"`).remove()
+    if (ingredientCount.length === 1) return
+    setIngredientCount(ingredientCount.slice(0,ingredientCount.length-1))
     
-    reorderIngredientIndices()
+    // reorderIngredientIndices()
   }
-
+  
   function reorderIngredientIndices() {
     const ingredientNodes = document.querySelectorAll('.ingredient')
     ingredientNodes.forEach((node,i) => {
       node.setAttribute("data-ingr-index", i)
     })
   }
+  function handleMeatOptionsChange(e) {
+    setform({ ...form, meat_options: e.target.value })
+  }
+
+  const [mealType, setMealType] = useState({
+    breakfast: true,
+    lunch: true,
+    dinner: true,
+  })
+  const { breakfast, lunch, dinner } = mealType;
+
+  const handleMealTypeChange = (event) => {
+    setMealType({
+      ...mealType,
+      [event.target.name]: event.target.checked,
+    });
+  };
+
+  const error = [breakfast, lunch, dinner].filter((v) => v).length < 1;
 
   return (
     <div className="form-container">
       <form onSubmit={submitRecipe} id="recipeForm">
       
-        <div className="control-group">
-          <label htmlFor="name">Name</label>
-          <input type="text" name="name" id="recipeName" />
-        </div>
+      <Stack spacing={2}>
+        <FormGroup id="name-group">
+          <TextField
+          name="name"
+          label="Recipe Name"
+          variant="filled"
+          helperText="This name must be unique. Consider adding your name to it if it is not."
+          required
+          ></TextField>
+        </FormGroup>
 
-        <div className="control-group">
-          <label htmlFor="prepTime">Prep Time</label>
-          <input type="number" name="prepTime" id="prepTime" />
-        </div>
+        <FormGroup id="cook-time-group">
+          <TextField 
+            name="prepTime"
+            label="Prep Time"
+            variant="filled"
+            defaultValue={0}
+            type="number"
+            ></TextField>
+          </FormGroup>
 
-        <div className="control-group">
-          <label htmlFor="cookTime">Cook Time</label>
-          <input type="number" name="cookTime" id="cookTime" />
-        </div>
+        <FormGroup id="cook-time-group">
+          <TextField 
+            name="cookTime"
+            label="Cook Time"
+            variant="filled"
+            defaultValue={0}
+            type="number"
+            ></TextField>
+          </FormGroup>          
 
-        <div className="control-group">
-          <label htmlFor="instructions">Instructions</label>
-          <textarea rows={4} cols={50} name="instructions" id="instructions" />
-        </div>
+        <FormGroup id="instructions-group">
+          <TextField
+            name="instructions"
+            label="Instructions"
+            variant="filled"
+            defaultValue={null}
+            type="text"
+            multiline={true}
+            rows={4}
+          ></TextField>
+        </FormGroup>
 
-        <div className="control-group">
-          <label htmlFor="meat_options">Meat options</label>
-          <input type="text" name="meat_options" id="meat_options" />
-        </div>
+        <FormControl id='meat-options-group'>
+          <InputLabel>Meat Option</InputLabel>
+          <Select
+            id="meat-options-select"
+            labelId="meat-options-select-label"
+            label="Meat Options"
+            onChange={handleMeatOptionsChange}
+            value={form.meatOption}
+            sx={{minWidth:10+"rem"}}
+            name='meat_options'
+            required
+          >
+          <MenuItem value={"vegetarian"}>Vegetarian</MenuItem>
+          <MenuItem value={"beef"}>Beef</MenuItem>
+          <MenuItem value={"chicken"}>Chicken</MenuItem>
+          <MenuItem value={"fish"}>Fish</MenuItem>
+          <MenuItem value={"pork"}>Pork</MenuItem>
+          </Select>
+        </FormControl>
 
-        <div className="control-group">
-          <label htmlFor="mealTypes">Meal Type(s)</label>
-          <input type="number" name="mealTypes" id="mealTypes" />
-        </div>
+        <FormControl id='meal-type-group'
+          required
+          error={error}
+          component="fieldset"
+          sx={{ m: 3 }}
+          variant="standard"
+          name="meal_types"
+        >
+          <FormLabel component="legend">Meal Type</FormLabel>
+          <FormGroup>
+            <FormControlLabel
+              control={
+                <Switch checked={breakfast} onChange={handleMealTypeChange} name="breakfast" />
+              }
+              label="Breakfast"
+            />
+            <FormControlLabel
+              control={
+                <Switch checked={lunch} onChange={handleMealTypeChange} name="lunch" />
+              }
+              label="Lunch"
+            />
+            <FormControlLabel
+              control={
+                <Switch checked={dinner} onChange={handleMealTypeChange} name="dinner" />
+              }
+              label="Dinner"
+            />
+          </FormGroup>
+          <FormHelperText>At least 1 must be checked</FormHelperText>
+        </FormControl>
 
-        <div className="control-group">
-          <label htmlFor="image">Image (url)</label>
-          <input type="text" name="image" id="image" defaultValue={null} />
-        </div>
+        <FormGroup id="image-group">
+          <TextField
+            name="image"
+            label="Image Url"
+            variant="filled"
+            defaultValue={null}
+            type="text"
+          ></TextField>
+        </FormGroup>
 
         <div className="control-group">
           <fieldset id="ingredients"><legend>Ingredients</legend>
-            <div className="ingredient" data-ingr-index="1">
-              <label htmlFor="ingr-name">Name</label>
-              <input type="text" name="ingr-name" />
-
-              <label htmlFor="quantity">Qty</label>
-              <input type="text" name="quantity" id="quantity" data-qty="0" />
-
-              <label htmlFor="uom">Meas.</label>
-              <input type="text" name="uom" id="uom" />
-
-              <button className="addIngredient" type="button" data-add_btn-index="0" onClick={addIngredientLine}>+</button>
-              <button className="removeIngredient" type="button" onClick={removeIngredientLine}>-</button>
-            </div>
+            { 
+                ingredientCount.map((i) => {
+                  return <IngredientGroup i={i}/>
+                })
+            }
           </fieldset>        
         </div>
 
-        <button type="submit">Submit Recipe</button>
+        <Button type="submit">Submit Recipe</Button>
+        </Stack>
       </form>
     </div>
   );

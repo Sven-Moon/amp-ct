@@ -16,25 +16,25 @@ const TimeIcon = (props) => {
 
   const s = {
     lg: {
-      h: 1.5,
-      font: .75
+      h: "1.5rem",
+      font: ".75rem"
     },
     md: {
-      h: 1,
-      font: .5
+      h: "1rem",
+      font: ".5rem"
     },
     sm: {
-      h: .75,
-      font: .5
+      h: ".75rem",
+      font: ".5rem"
     },
     xsm: {
-      h: .5,
-      font: .25
+      h: ".5rem",
+      font: ".25rem"
     },
   }
     
 
-  return <div className="categoryIcon" style={{backgroundColor:color, height:s[size]?.h+"rem", fontSize:s[size]?.font+"rem"}}>{minutes}</div>
+  return <div className="categoryIcon" style={{backgroundColor:color, height:s[size]?.h, fontSize:s[size]?.font}}>{minutes}</div>
 }
 
 export default TimeIcon

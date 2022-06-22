@@ -9,13 +9,13 @@ const Meal = ({r, m}) => {
   console.log('meal recipe', r)
   return (
     <Button variant="outlined">
-      <Stack direction="row">
+      <Stack direction="row" width="100%" justifyContent="space-between">
         <Avatar src={r?.image} variant="square">
           N
         </Avatar>
-        <Typography>{r?.name}</Typography>
+        <Typography flex="3 1 auto" textAlign='left'>{r?.name}</Typography>
         <TimeIcon minutes={r?.cook_time+r?.prep_time}></TimeIcon>
-        <CategoryIcon kind={r?.customs_meat_options}></CategoryIcon>
+        <CategoryIcon kind={r?.custom_meat_options}></CategoryIcon>
         <Typography>{m}</Typography>
       </Stack>
     </Button>
