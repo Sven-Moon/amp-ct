@@ -2,8 +2,7 @@ import { borderRadius } from "@mui/system"
 
 const CategoryIcon = ({ kind, size }) => {
 
-  console.log('kind', kind)
-  kind = kind.toLowerCase()
+  kind = kind?.toLowerCase()
   size = size || "md"
   const p = {
     beef: {
@@ -47,7 +46,7 @@ const CategoryIcon = ({ kind, size }) => {
   }
   
 
-  return <div className="categoryIcon" style={{backgroundColor:p[kind].bg, height:s[size].h, fontSize:s[size].font}}>{p[kind].text}</div>
+  return <div className="categoryIcon" style={{backgroundColor:p[kind]?.bg, height:s[size].h, fontSize:s[size].font}}>{p[kind]?.text}</div>
 }
 
 export default CategoryIcon

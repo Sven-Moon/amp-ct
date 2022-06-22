@@ -1,8 +1,34 @@
 import { Button, Card, CardActions, CardContent, Stack, Typography } from "@mui/material"
 import Meal from "./Meal"
+import { useEffect, useContext } from 'react';
+import { DataContext } from "../app/Providers/DataProvider";
+
+
 
 const Day = ({day}) => {
+  const { messages, setMessages, regUser, userRecipes, setUserRecipes } = useContext(DataContext)
 
+  useEffect(() => {
+    if (!userRecipes) { getRegUserRecipes() } }, [])
+  
+  async function getRegUserRecipes() {
+    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}`
+    let options = {
+      method: 'POST',
+      body: JSON.stringify({}),
+      headers: { 'Content-Type': 'application/json' }
+    }
+    try {
+      const resp = await fetch(url, options)
+      const data = await resp.json()
+      if (!resp.ok) throw data
+      else {
+        setUserRecipes(data.recipes) // [ { RecipeBox } ]
+      }
+    } catch (e) {
+      setMessages([...messages], e.message)
+    }
+  }
 
   return (
     <Card sx={{ minWidth: 275 }}>

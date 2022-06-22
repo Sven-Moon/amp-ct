@@ -10,6 +10,7 @@ import Donate from '../pages/donate/Donate';
 import Register from '../pages/register/register';
 import GetRegUser from '../components/getRegUser/getRegUser'
 import Protected from '../components/Protected';
+import MealPlan from '../pages/mealPlan/mealPlan';
 
 function App() {
   return (
@@ -18,14 +19,17 @@ function App() {
       <Routes>
         <Route children path='/account' element={<Account />}></Route>
         <Route children path='/register' element={<Register />}></Route>
-        <Route children path='/recipe' 
-        element={<Protected><Recipe /></Protected>}>          
-        </Route>
+        <Route children path='/recipe' element={<Protected>
+          <Recipe />
+        </Protected>} ></Route>
         <Route children path='/donate' element={<Donate />}></Route>
         <Route children path='/getreguser' element={<GetRegUser />}></Route>
-        <Route children path='/recipe-box' 
-          element={<Protected><RecipeBox /></Protected>}>
-        </Route>
+        <Route children path='/recipe-box' element={<Protected>
+          <RecipeBox />
+          </Protected>} ></Route>
+        <Route children path='/meal_plan'element={<Protected>
+          <MealPlan/>
+        </Protected>} ></Route>
         <Route children path='/' element={<Dashboard/>}></Route>
       </Routes>
     </React.Fragment>

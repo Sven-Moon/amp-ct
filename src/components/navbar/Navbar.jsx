@@ -8,10 +8,15 @@ import { useEffect } from 'react';
 const Navbar = () => {
   const auth = useAuth()
   const {status, data: user} = useUser()
-  const {setRegUser} = useContext(DataContext)
-  const { isLoggedIn, setIsLoggedIn} = useContext(DataContext)
-  const { messages, setMessages } = useContext(DataContext)
+  const { isLoggedIn, setIsLoggedIn, regUser, setRegUser, setUserRecipes, 
+    messages, setMessages } = useContext(DataContext)
   const navigate = useNavigate()
+
+  useEffect(() => {
+    if (user && !isLoggedIn)
+      getRegUser()
+  }, [user])
+  useEffect(() => { if (isLoggedIn) getRegUserRecipes()}, [])
 
   const sign_in = async () => {
     const provider = new GoogleAuthProvider()
@@ -55,11 +60,6 @@ const Navbar = () => {
     console.log('signed user out', user) 
   }
 
-  useEffect(() => { 
-    if (user && !isLoggedIn) 
-      getRegUser()
-    }, [user]
-  )
 
   const getRegUser = async () => {
     await fetch(`http://localhost:5000/api/v1/user/reg/${user.email}`)
@@ -87,13 +87,33 @@ const Navbar = () => {
     return <li key={i}>{m}</li>
   }
 
+  async function getRegUserRecipes() {
+    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}`
+    let options = {
+      method: 'POST',
+      body: JSON.stringify({}),
+      headers: { 'Content-Type': 'application/json' }
+    }
+    fetch(url, options)
+      .then(resp => {
+        if (resp.ok) return resp.json()
+        else throw Error('Could not find recipes with that username')
+      })
+      .then(data => {
+        setUserRecipes(data.recipes)
+      })
+      .catch((e) => {
+        setMessages([...messages], e.message)
+      })
+  }
+
   return (
     <nav>
     <div className="nav1">
       <Link to='/' className="logo" >AMP</Link>
       <div className="nav-container">
         <ul className='nav-links'>
-          <li className='link'>My Meal Plan</li>
+          <li className='link'><Link to="/meal_plan">My Meal Plan</Link></li>
           <li className='link'><Link to="/recipe-box">My Recipes</Link></li>
           <li className='link'><Link to="/recipe">Create a recipe</Link></li>
         </ul>

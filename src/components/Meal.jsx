@@ -5,7 +5,6 @@ import TimeIcon from "./timeIcon/TimeIcon"
 const Meal = ({r, m}) => {
   
   let meat_options = r.meat_options ? r.meat_options : r.custom_meat_options
-  console.log(r)
 
   return (
     <Button variant="outlined">

@@ -107,7 +107,7 @@ const Register = () => {
       })
   } 
   const setSchedule = async (id) => {
-    fetch(`http://localhost:5000/api/v1/schedule/${id}/create`, {
+    fetch(`http://localhost:5000/api/v1/meal_plan/${id}/schedule/create`, {
       'method': 'POST',
       'body': JSON.stringify(scheduleData),
       headers: { 'Content-Type': 'application/json' }

@@ -51,7 +51,6 @@ const RecipeBox = () => {
       .catch((e) => {
         setMessages([...messages], e.message)
       })
-
   }
   const getOthersRecipes = async () => {
     console.log('other-filters:', filters)

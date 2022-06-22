@@ -8,6 +8,7 @@ const DataProvider = (props) => {
   })
   const [messages, setMessages] = useState([])
   const [isLoggedIn, setIsLoggedIn] = useState(false)
+  const [userRecipes, setUserRecipes] = useState(false)
   const [filters, setFilters] = useState({
     created_by: null,
     prep_time: null,
@@ -29,7 +30,9 @@ const DataProvider = (props) => {
     'isLoggedIn': isLoggedIn,
     'setIsLoggedIn': setIsLoggedIn,
     'filters': filters,
-    'setFilters': setFilters
+    'setFilters': setFilters,
+    'userRecipes': userRecipes,
+    'setUserRecipes': setUserRecipes
   }
 
   return (
