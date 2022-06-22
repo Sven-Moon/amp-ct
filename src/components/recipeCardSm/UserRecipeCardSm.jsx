@@ -21,7 +21,7 @@ import { useContext } from 'react';
 import { DataContext } from '../../app/Providers/DataProvider';
 import { pink } from '@mui/material/colors';
 
-const RecipeCardSm = ({ r }) => {
+const UserRecipeCardSm = ({ r }) => {
 
   const ExpandMore = styled((props) => {
     const { expand, ...other } = props;
@@ -64,7 +64,7 @@ const RecipeCardSm = ({ r }) => {
     })
     .catch(e => setMessages([...messages], e))
   }
-
+  console.log(r)
   return (
       <Card variant='outlined' sx={{ maxWidth: 550 }}>
         <CardHeader
@@ -84,7 +84,7 @@ const RecipeCardSm = ({ r }) => {
         />
         <CardContent>
           <Stack direction="row" spacing={2}>
-              <CategoryIcon kind={r.category} size="md"/>
+          <CategoryIcon kind={r.custom_meat_options} size="md"/>
             <Stack direction="row" spacing={1}>
             <TimeIcon minutes={r.prep_time + r.cook_time} size="md"/>
               <div>Minutes</div>
@@ -120,4 +120,4 @@ const RecipeCardSm = ({ r }) => {
   );
 }
 
-export default RecipeCardSm
+export default UserRecipeCardSm

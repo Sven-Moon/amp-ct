@@ -22,7 +22,7 @@ export const Recipe = () => {
     form["prep_time"] = document.querySelector('[name="prepTime"]').value || null
     form["cook_time"] = document.querySelector('[name="cookTime"]').value || null
     form["instructions"] = document.querySelector('[name="instructions"]').value
-    form["category"] = document.querySelector('[name="category"]').value
+    form["meat_options"] = document.querySelector('[name="meat_options"]').value
     form["meal_types"] = document.querySelector('[name="mealTypes"]').value || null
     form["image"] = document.querySelector('[name="image"]').value
     form["created_by"] = regUser.username
@@ -143,8 +143,8 @@ export const Recipe = () => {
         </div>
 
         <div className="control-group">
-          <label htmlFor="category">Category</label>
-          <input type="text" name="category" id="category" />
+          <label htmlFor="meat_options">Meat options</label>
+          <input type="text" name="meat_options" id="meat_options" />
         </div>
 
         <div className="control-group">

@@ -8,7 +8,6 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
-import FavoriteIcon from '@mui/icons-material/Favorite';
 import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
@@ -20,7 +19,6 @@ import TimeIcon from '../timeIcon/TimeIcon';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useContext } from 'react';
 import { DataContext } from '../../app/Providers/DataProvider';
-import { json } from 'docker/src/languages';
 
 const RecipeCardSm = ({ r }) => {
 
@@ -56,15 +54,34 @@ const RecipeCardSm = ({ r }) => {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify ({
-        "scheduled": true, "fixed_schedule": false, "fixed_period": 14
+        "custom_meal_types": null, "custom_meat_options": null,
+        "schedule": true, 
+        "fixed_schedule": false, "fixed_period": 14
       })
     }
-    fetch(url, options)
+    await fetch(url, options)
     .then(resp => {
-      if (resp.ok) setMessages([...messages], 'Recipe added to Recipe Box')
+      if (resp.ok) {
+        setMessages([...messages], 'Recipe added to Recipe Box')
+        return resp.json()
+      }
       else throw Error('Could not add recipe to Recipe Box')
+      .then(data => console.log('addToRecipebox data:',data))
     })
     .catch(e => setMessages([...messages], e))
+
+
+    
+    // try {
+    //   const res = await fetch(url, options)
+    //   const data = await res.json()
+
+    //   if (!res.ok) throw data
+    //   setMessages([...messages], 'Recipe added to Recipe Box')
+    // //     return resp.json()
+    // } catch (e) {
+    //   console.log(e.message)
+    // }
   }
 
   return (
@@ -86,7 +103,7 @@ const RecipeCardSm = ({ r }) => {
         />
         <CardContent>
           <Stack direction="row" spacing={2}>
-              <CategoryIcon kind={r.category} size="md"/>
+          <CategoryIcon kind={r.meat_options} size="md"/>
             <Stack direction="row" spacing={1}>
             <TimeIcon minutes={r.prep_time + r.cook_time} size="md"/>
               <div>Minutes</div>

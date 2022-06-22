@@ -2,6 +2,7 @@ import { borderRadius } from "@mui/system"
 
 const CategoryIcon = ({ kind, size }) => {
 
+  console.log('kind', kind)
   kind = kind.toLowerCase()
   size = size || "md"
   const p = {
