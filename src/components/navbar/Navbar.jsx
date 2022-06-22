@@ -16,7 +16,7 @@ const Navbar = () => {
     if (user && !isLoggedIn)
       getRegUser()
   }, [user])
-  useEffect(() => { if (isLoggedIn) getRegUserRecipes()}, [])
+  useEffect(() => { if (isLoggedIn) getRegUserRecipes()}, [isLoggedIn])
 
   const sign_in = async () => {
     const provider = new GoogleAuthProvider()
@@ -100,11 +100,19 @@ const Navbar = () => {
         else throw Error('Could not find recipes with that username')
       })
       .then(data => {
-        setUserRecipes(data.recipes)
+        setUserRecipes(createUserRecipeObject(data.recipes))
       })
       .catch((e) => {
         setMessages([...messages], e.message)
       })
+  }
+
+  function createUserRecipeObject(userRecipesArray) {
+    let urObj = {}
+    for(let recipe of userRecipesArray) {
+      urObj[recipe.id] = recipe
+    }
+    return urObj
   }
 
   return (

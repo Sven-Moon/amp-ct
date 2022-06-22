@@ -8,38 +8,48 @@ import Day from "../../components/Day"
 const MealPlan = () => {
 
   const { regUser, messages, setMessages } = useContext(DataContext)
+  const [mealPlan, setMealPlan] = useState({ })
 
-  useEffect(() => getMealPlan(), [mealPlan])
+  useEffect(() => {  
 
-  const [mealPlan, setMealPlan] = useState()
-
-  async function getMealPlan() {
-    let url = `http://localhost:5000/meal_plan/${regUser.id}`
-    let options = {
-      method: 'POST',
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({})
-    }
-    try {
-      const resp = await fetch(url, options)
-      const data = await resp.json()
-      if (!resp.ok) throw data
-      else {
-        setMealPlan(data.meal_plan) // [ { Day } ]
+    async function getMealPlan() {
+      let url = `http://localhost:5000/api/v1/meal_plan/${regUser.id}`
+      let options = {
+        method: 'POST',
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({})
       }
-    } catch (e) {
-      setMessages([...messages], e.message)
+      try {
+        const resp = await fetch(url, options)
+        const data = await resp.json()
+        if (!resp.ok) throw data
+        else {
+          setMealPlan(data.meal_plan) // [ { Day } ]
+        }
+      } catch (e) {
+        console.log((e.message))
+        setMessages([...messages], e.message)
+      }
     }
-  }
+    getMealPlan()  
 
+  }, [mealPlan[0]?.date])
+
+
+  
+
+  console.log('mealPlan:', mealPlan)
 
   const addStoreTrip = () => {  }
 
   return (
     <Container>
+    hello
       <Box>
-      { mealPlan ? 
-        mealPlan.map((day) => <Day day={day} />) 
+      { mealPlan[0] ? 
+          mealPlan.map((day, i) => { 
+            {console.log('day', day)}
+            return <Day key={i} day={day} /> })
       : null }
       </Box>
     </Container>

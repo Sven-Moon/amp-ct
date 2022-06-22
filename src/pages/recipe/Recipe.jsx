@@ -24,13 +24,14 @@ export const Recipe = () => {
     form["instructions"] = document.querySelector('[name="instructions"]').value
     form["meat_options"] = document.querySelector('[name="meat_options"]').value
     form["meal_types"] = document.querySelector('[name="mealTypes"]').value || null
-    form["image"] = document.querySelector('[name="image"]').value
+    form["image"] = document.querySelector('[name="image"]').value || null
     form["created_by"] = regUser.username
     let ing_names = document.querySelectorAll('[name="ingr-name"]')
     let qtys = document.querySelectorAll('[name="quantity"]')
     let uoms = document.querySelectorAll('[name="uom"]')
     // put ingredients into an array and attach as "ingredients"
     // TODO: add ingredient prep modifier
+    // TODO: validate on at least 1 ingredient
     let ingredients = []
     for (let i=0; i<ing_names.length; i++) {
       let ingredient = {}
@@ -154,7 +155,7 @@ export const Recipe = () => {
 
         <div className="control-group">
           <label htmlFor="image">Image (url)</label>
-          <input type="text" name="image" id="image" />
+          <input type="text" name="image" id="image" defaultValue={null} />
         </div>
 
         <div className="control-group">

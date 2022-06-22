@@ -34,7 +34,7 @@ const TimeIcon = (props) => {
   }
     
 
-  return <div className="categoryIcon" style={{backgroundColor:color, height:s[size].h+"rem", fontSize:s[size].font+"rem"}}>{minutes}</div>
+  return <div className="categoryIcon" style={{backgroundColor:color, height:s[size]?.h+"rem", fontSize:s[size]?.font+"rem"}}>{minutes}</div>
 }
 
 export default TimeIcon

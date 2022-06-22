@@ -53,7 +53,6 @@ const RecipeBox = () => {
       })
   }
   const getOthersRecipes = async () => {
-    console.log('other-filters:', filters)
     let url = 'http://localhost:5000/api/v1/recipes/search'
     let options = {
       method: 'POST',
@@ -65,9 +64,7 @@ const RecipeBox = () => {
         if (resp.ok) return resp.json()
         else throw Error('Could not find recipes with that username')
       })
-      .then(data => {
-        console.log(data.recipes)
-        // data = { recipes: [{recipe}] }
+      .then(data => { // data = { recipes: [{recipe}] }        
         setRecipes(data.recipes)
       })
       .catch((e) => {
@@ -99,8 +96,9 @@ const RecipeBox = () => {
         { recipes 
           ? recipes.map((r, i) => { 
             return filters.userRecipes 
-            ? <UserRecipeCardSm r={r} i={i} u={regUser.username} />
-            : <RecipeCardSm r={r} i={i} u={regUser.username}/>} )
+            ? <UserRecipeCardSm key={i} r={r} i={i} u={regUser.username} />
+            // TODO change look or filter recipes in userRecipe set
+            : <RecipeCardSm key={i} r={r} i={i} u={regUser.username}/>} )
           : 'No Results matching search' }
       </div>
     </Box>
