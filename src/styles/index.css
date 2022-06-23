@@ -197,16 +197,56 @@ button.MuiButton-root {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
+  -webkit-box-orient: horizontal;
+  -webkit-box-direction: normal;
+      -ms-flex-flow: row wrap;
+          flex-flow: row wrap;
+  width: 100%;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.instruction .img_box {
+  width: 100%;
+  padding: 10%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+.instruction .img_box img {
+  object-fit: contain;
+  width: 100%;
+  -o-object-fit: contain;
 }
 
 .instruction .copy {
-  width: 30%;
-  padding: 2rem;
+  width: 100%;
+  padding: 1rem;
 }
 
-.instruction .copy img {
-  width: 70%;
-  padding: 10%;
+.instruction .copy a {
+  display: inline-block;
+  padding: 3px 6px;
+  color: #333;
+  background-color: #eee;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.instruction .o2 {
+  -webkit-box-ordinal-group: 3;
+      -ms-flex-order: 2;
+          order: 2;
+}
+
+@media only screen and (min-width: 600px) {
+  .img_box {
+    width: 60%;
+  }
+  .copy {
+    width: 40%;
+  }
 }
 
 .donation_container {
