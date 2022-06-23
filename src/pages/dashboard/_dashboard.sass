@@ -1,2 +1,19 @@
-.test
-  background-color: lightblue
+@import '../../styles/_mixins'
+
+.dashboard_box
+  height: calc(100%-16px)
+  width: 100%
+
+.hero
+  @include flexCenter(column, transparent)
+  height: 300px
+
+.instruction
+  display: flex
+  .copy
+    width: 30%
+    padding: 2rem
+
+    img
+      width: 70%
+      padding: 10%

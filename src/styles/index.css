@@ -170,8 +170,43 @@ button.MuiButton-root {
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out,-webkit-box-shadow .15s ease-in-out;
 }
 
-.test {
-  background-color: lightblue;
+.dashboard_box {
+  height: calc(100%-16px);
+  width: 100%;
+}
+
+.hero {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: transparent;
+  height: 300px;
+}
+
+.instruction {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+}
+
+.instruction .copy {
+  width: 30%;
+  padding: 2rem;
+}
+
+.instruction .copy img {
+  width: 70%;
+  padding: 10%;
 }
 
 .donation_container {

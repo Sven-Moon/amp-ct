@@ -8,7 +8,7 @@ import RecipeFilters from "../../components/recipeFilters/recipeFilters";
 
 const RecipeBox = () => {
   
-  const { regUser,  } = useContext(DataContext)
+  const { regUser, userRecipes, setUserRecipes } = useContext(DataContext)
   const { messages, setMessages } = useContext(DataContext)
   const [ recipes, setRecipes ] = useState([])
   const { filters, setFilters } = useContext(DataContext)
@@ -29,15 +29,14 @@ const RecipeBox = () => {
   useEffect(() => { getRecipes()}, [regUser, filters])
   
   const getRecipes = async () => {
-    if (filters.userRecipes) getRegUserRecipes()
+    if (filters.userRecipes && !userRecipes) getRegUserRecipes()
     else getOthersRecipes()
   }
-  const getRegUserRecipes = async () => {
-    console.log('user-filters:', filters)
+  async function getRegUserRecipes() {
     let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}`
     let options = {
       method: 'POST',
-      body: JSON.stringify(filters),
+      body: JSON.stringify({}),
       headers: { 'Content-Type': 'application/json' }
     }
     fetch(url, options)
@@ -46,11 +45,19 @@ const RecipeBox = () => {
         else throw Error('Could not find recipes with that username')
       })
       .then(data => {
-        setRecipes(data.recipes)
+        console.log('recipebox getRegUserRecipes', data.recipes)
+        setUserRecipes(createUserRecipeObject(data.recipes))
       })
       .catch((e) => {
         setMessages([...messages], e.message)
       })
+  }
+  function createUserRecipeObject(userRecipesArray) {
+    let urObj = {}
+    for (let recipe of userRecipesArray) {
+      urObj[recipe.id] = recipe
+    }
+    return urObj
   }
   const getOthersRecipes = async () => {
     let url = 'http://localhost:5000/api/v1/recipes/search'
@@ -82,24 +89,27 @@ const RecipeBox = () => {
   const toggleUserRecipes = () => {
     setFilters({...filters, userRecipes: !filters.userRecipes})
   }
+  console.log(filters.userRecipes)
+
+  console.log(userRecipes)
 
   return (
     <Box scroll="paper">
       <h1>Recipe Box</h1>
       <Stack direction="row" justify-content="space-around"></Stack>
         <Button onClick={showFilters}>Filters</Button>
-        <Modal open={open} onClose={hideFilters}>
+        {/* <Modal open={open} onClose={hideFilters}>
           <RecipeFilters/>
-        </Modal>
+        </Modal> */}
         <Button onClick={toggleUserRecipes}>{filters.userRecipes ? 'Find More Like This': 'Back to My Recipes'}</Button>
       <div className="recipes_box">
-        { recipes 
-          ? recipes.map((r, i) => { 
-            return filters.userRecipes 
-            ? <UserRecipeCardSm key={i} r={r} i={i} u={regUser.username} />
-            // TODO change look or filter recipes in userRecipe set
-            : <RecipeCardSm key={i} r={r} i={i} u={regUser.username}/>} )
-          : 'No Results matching search' }
+        {filters.userRecipes 
+          ? userRecipes
+            ? Object.values(userRecipes).map((uRecipes, i) => 
+              <UserRecipeCardSm key={i} r={uRecipes} i={i} u={regUser.username} />)
+            : 'No Results matching search'
+          : recipes.map((r, i) => <RecipeCardSm key={i} r={r} i={i} u={regUser.username} />)
+         }
       </div>
     </Box>
   );

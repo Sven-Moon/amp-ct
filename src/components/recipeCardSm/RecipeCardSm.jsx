@@ -6,7 +6,7 @@ import CardContent from '@mui/material/CardContent';
 import CardActions from '@mui/material/CardActions';
 import Collapse from '@mui/material/Collapse';
 import IconButton from '@mui/material/IconButton';
-import ShareIcon from '@mui/icons-material/Share';
+// import ShareIcon from '@mui/icons-material/Share';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import CircleIcon from '@mui/icons-material/Circle';
@@ -17,6 +17,7 @@ import TimeIcon from '../displayIconsRound/TimeIcon';
 import AddBoxIcon from '@mui/icons-material/AddBox';
 import { useContext } from 'react';
 import { DataContext } from '../../app/Providers/DataProvider';
+import BeenhereIcon from '@mui/icons-material/Beenhere';
 
 const RecipeCardSm = ({ r }) => {
 
@@ -32,6 +33,7 @@ const RecipeCardSm = ({ r }) => {
   }));
   const { regUser } = useContext(DataContext)
   const { messages, setMessages } = useContext(DataContext)
+  const { userRecipes, setUserRecipes } = useContext(DataContext)
 
   const DATE_OPTIONS = {
     weekday: 'short',
@@ -57,29 +59,37 @@ const RecipeCardSm = ({ r }) => {
         "fixed_schedule": false, "fixed_period": 14
       })
     }
-    await fetch(url, options)
-    .then(resp => {
+    // await fetch(url, options)
+    // .then(resp => {
+    //   if (resp.ok) {
+    //     setMessages([...messages], 'Recipe added to Recipe Box')
+    //     return resp.json()
+    //   }
+    //   else throw Error('Could not add recipe to Recipe Box')
+    //   .then(data => console.log('addToRecipebox data:',data))
+    // })
+    // .catch(e => setMessages([...messages], e))
+
+    try {
+      const resp = await fetch(url,options)
+      const data = await resp.json()
+
       if (resp.ok) {
+        console.log(data.recipes)
         setMessages([...messages], 'Recipe added to Recipe Box')
-        return resp.json()
-      }
-      else throw Error('Could not add recipe to Recipe Box')
-      .then(data => console.log('addToRecipebox data:',data))
-    })
-    .catch(e => setMessages([...messages], e))
-
-
+        setUserRecipes(createUserRecipeObject(data.recipes))
+      } else throw data.json()
+    } catch (e) {
+      console.error(e.message)
+    }
     
-    // try {
-    //   const res = await fetch(url, options)
-    //   const data = await res.json()
-
-    //   if (!res.ok) throw data
-    //   setMessages([...messages], 'Recipe added to Recipe Box')
-    // //     return resp.json()
-    // } catch (e) {
-    //   console.log(e.message)
-    // }
+    function createUserRecipeObject(userRecipesArray) {
+      let urObj = {}
+      for (let recipe of userRecipesArray) {
+        urObj[recipe.id] = recipe
+      }
+      return urObj
+    }
   }
 
   return (
@@ -109,12 +119,16 @@ const RecipeCardSm = ({ r }) => {
           </Stack>
         </CardContent>
         <CardActions disableSpacing>
-          <IconButton aria-label="Add to Recipe Box">
-          <AddBoxIcon color="primary" onClick={addToRecipebox} />
-          </IconButton>
-          <IconButton aria-label="share">
+          { userRecipes[r.id] 
+            ? <BeenhereIcon /> 
+            : <IconButton aria-label="Add to Recipe Box">
+                <AddBoxIcon color="primary" onClick={addToRecipebox} />
+              </IconButton>
+          }
+          
+          {/* <IconButton aria-label="share">
             <ShareIcon />
-          </IconButton>
+          </IconButton> */}
           <ExpandMore
             expand={expanded}
             onClick={handleExpandClick}

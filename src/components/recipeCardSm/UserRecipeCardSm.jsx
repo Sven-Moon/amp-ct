@@ -34,7 +34,7 @@ const UserRecipeCardSm = ({ r }) => {
     }),
   }));
   const { regUser } = useContext(DataContext)
-  const { messages, setMessages } = useContext(DataContext)
+  const { messages, setMessages, userRecipes, setUserRecipes } = useContext(DataContext)
 
   const DATE_OPTIONS = {
     weekday: 'short',
@@ -52,18 +52,28 @@ const UserRecipeCardSm = ({ r }) => {
   const removeFromRecipebox = async () => {
     let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}/remove/${r.id}`
     let options = {
-      method: 'POST',
+      method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify ({})
+    }    
+    try {
+      const resp = await fetch(url, options)
+      const data = await resp.json()
+  
+      if (resp.ok) { 
+        setMessages([...messages], 'Recipe was removed from Recipe Box')
+        setUserRecipes(Object.keys(userRecipes)
+          .filter(k => !k.includes(r.id)).reduce((cur, k) => {
+            return Object.assign(cur, { [k]: userRecipes[k] })
+          }, {})
+        )    
+      } else throw data
+    } catch (e) {
+      console.error(e.message)
     }
-    fetch(url, options)
-    .then(resp => {
-      // TODO: add undo
-      if (resp.ok) setMessages([...messages], 'Recipe was removed from Recipe Box')
-      else throw Error('Could not remove recipe from Recipe Box')
-    })
-    .catch(e => setMessages([...messages], e))
   }
+
+
   console.log(r)
   return (
       <Card variant='outlined' sx={{ maxWidth: 550 }}>
