@@ -7,23 +7,23 @@ const CategoryIcon = ({ kind, size }) => {
   const p = {
     beef: {
       text: "B",
-      bg: '#99222c'
+      bg: '#d5c67a'
     },
     vegetarian: {
       text: "V",
-      bg: '#02d43a'
+      bg: '#06A77D'
     },
     chicken: {
       text: "C",
-      bg: '#140f10'
+      bg: '#005377'
     },
     pork: {
       text: "P",
-      bg: '#fab8a0'
+      bg: '#f1a208'
     },
     fish: {
       text: "F",
-      bg: '#e4eef5'
+      bg: '#052f5f'
     },
   }
 

@@ -1,3 +1,4 @@
+import { Stack, Typography } from "@mui/material"
 import { borderRadius } from "@mui/system"
 
 const TimeIcon = (props) => {
@@ -5,36 +6,55 @@ const TimeIcon = (props) => {
   let { minutes, size } = props
   size = size || "md"
 
-  if (minutes <= 10) var color = '#76f553'
-  else if (minutes <= 20) var color = '#38a82c'
-  else if (minutes <= 30) var color = '#72a82c'
-  else if (minutes <= 45) var color = '#9aa82c'
-  else if (minutes <= 60) var color = '#a88d2c'
-  else if (minutes <= 90) var color = '#a8762c'
-  else if (minutes <= 120) var color = '#a8552c'
-  else var color = '#a82020'
+  if (minutes <= 10) var color = '#3dd40f'
+  else if (minutes <= 20) var color = '#05a10d'
+  else if (minutes <= 30) var color = '#93d406'
+  else if (minutes <= 45) var color = '#999c16'
+  else if (minutes <= 60) var color = '#cfbe06'
+  else if (minutes <= 90) var color = '#cf8206'
+  else if (minutes <= 120) var color = '#a12c05'
+  else var color = '#a10527'
 
-
+  const time = (minutes > 60) ? (minutes / 60).toFixed(1) : minutes.toString()
+  const uot = (minutes > 60) ? "Hrs" : "Min"
   const s = {
     lg: {
-      h: "2rem",
-      font: "1.25rem"
+      h: 32,
+      font: 20,
+      uom_font: 9
     },
     md: {
-      h: "1.5rem",
-      font: ".75rem"
+      h: 28,
+      font: 18,
+      uom_font: 8
     },
     sm: {
-      h: "1rem",
-      font: ".5rem"
+      h: 24,
+      font: 14,
+      uom_font: 7
     },
     xsm: {
-      h: ".75rem",
-      font: ".5rem"
+      h: 20,
+      font: 12,
+      uom_font: 7
     },
   }
 
-  return <div className="displayIconRound" style={{backgroundColor:color, height:s[size]?.h, fontSize:s[size]?.font}}>{minutes}</div>
+  return (
+    <div className="displayIconRound" style={{ backgroundColor: color, height: s[size]?.h, fontSize: s[size]?.font }}>
+    <Stack direction="column"> 
+    <Typography lineHeight={.75} fontSize={s[size]?.font}>
+      {time}
+    </Typography>    
+    <Typography lineHeight={.75} color="#333" fontSize={s[size]?.uom_font} fontWeight={500}>
+      {uot}
+      </Typography>
+    </Stack>
+    </div>
+      
+  )
+    
+  
 }
 
 export default TimeIcon

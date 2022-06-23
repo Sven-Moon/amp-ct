@@ -35,7 +35,7 @@ function App() {
         <Route children path='/' element={<Dashboard/>}></Route>
       </Routes>
       </Container>
-      <BottomNav />
+      {/* <BottomNav /> */}
     </>
   );
 }
