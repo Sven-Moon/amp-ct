@@ -1,6 +1,4 @@
 import React from 'react';
-// import Navbar from './components/navbar/Navbar';
-import Navbar from '../components/navbar/Navbar'
 import { Routes, Route } from 'react-router-dom'
 import Dashboard from '../pages/dashboard/Dashboard'
 import { Recipe } from '../pages/recipe/Recipe';
@@ -12,15 +10,14 @@ import GetRegUser from '../components/getRegUser/getRegUser'
 import Protected from '../components/Protected';
 import MealPlan from '../pages/mealPlan/mealPlan';
 import BottomNav from '../components/BottomNav'
-import { Paper } from '@mui/material';
 import { Container } from '@mui/system';
 import Navbar2 from '../components/Navbar2'
 
 function App() {
   return (
     < >
-      <Navbar2/>
-      <Container>
+      <Navbar2></Navbar2>
+      <Container sx={{minHeight: 70+'%', marginTop: 60+'px'}}>
       <Routes>
         <Route children path='/account' element={<Account />}></Route>
         <Route children path='/register' element={<Register />}></Route>

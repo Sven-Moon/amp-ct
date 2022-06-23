@@ -2,7 +2,8 @@ import { borderRadius } from "@mui/system"
 
 const TimeIcon = (props) => {
 
-  const {minutes, size} = props
+  let { minutes, size } = props
+  size = size || "md"
 
   if (minutes <= 10) var color = '#76f553'
   else if (minutes <= 20) var color = '#38a82c'
@@ -16,25 +17,24 @@ const TimeIcon = (props) => {
 
   const s = {
     lg: {
+      h: "2rem",
+      font: "1.75rem"
+    },
+    md: {
       h: "1.5rem",
       font: ".75rem"
     },
-    md: {
+    sm: {
       h: "1rem",
       font: ".5rem"
     },
-    sm: {
+    xsm: {
       h: ".75rem",
       font: ".5rem"
     },
-    xsm: {
-      h: ".5rem",
-      font: ".25rem"
-    },
   }
-    
 
-  return <div className="categoryIcon" style={{backgroundColor:color, height:s[size]?.h, fontSize:s[size]?.font}}>{minutes}</div>
+  return <div className="displayIconRound" style={{backgroundColor:color, height:s[size]?.h, fontSize:s[size]?.font}}>{minutes}</div>
 }
 
 export default TimeIcon

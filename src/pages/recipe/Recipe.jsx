@@ -1,4 +1,4 @@
-import { Button, ButtonGroup, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, InputLabel, MenuItem, Paper, Select, Stack, Switch, TextField } from "@mui/material";
+import { Button, ButtonGroup, CardHeader, Checkbox, FormControl, FormControlLabel, FormGroup, FormHelperText, FormLabel, InputLabel, MenuItem, Paper, Select, Stack, Switch, TextField } from "@mui/material";
 import { useState, useContext } from "react";
 import { useUser } from 'reactfire';
 import { DataContext } from "../../app/Providers/DataProvider";
@@ -160,7 +160,8 @@ export const Recipe = () => {
   const error = [breakfast, lunch, dinner].filter((v) => v).length < 1;
 
   return (
-    <Box display={'flex'} elevation={1} justifyContent={'center'} className="form-container">
+    <Box display={'flex'} elevation={1} justifyContent={'center'} className="form-container" flexDirection={'column'}>
+      <h1 style={{textAlign: "center"}}>Make Something Delicious... and Share It</h1>
       <form onSubmit={submitRecipe} id="recipeForm">
       
       <Stack spacing={2}>

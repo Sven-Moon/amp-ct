@@ -144,6 +144,10 @@ root {
   width: 100vw;
 }
 
+button.MuiButton-root {
+  text-transform: none;
+}
+
 .btn {
   display: inline-block;
   font-weight: 400;
@@ -576,7 +580,7 @@ footer {
   }
 }
 
-.categoryIcon {
+.displayIconRound {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

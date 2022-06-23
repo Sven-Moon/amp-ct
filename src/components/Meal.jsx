@@ -1,6 +1,7 @@
 import { Avatar, Button, Card, CardContent, Stack, Typography } from "@mui/material"
-import CategoryIcon from "./categoryIcon/CategoryIcon"
-import TimeIcon from "./timeIcon/TimeIcon"
+import CategoryIcon from "./displayIconsRound/CategoryIcon"
+import TimeIcon from "./displayIconsRound/TimeIcon"
+import TitleCase from 'react-title-case'
 
 const Meal = ({r, m}) => {
   
@@ -13,8 +14,8 @@ const Meal = ({r, m}) => {
         <Avatar src={r?.image} variant="square">
           N
         </Avatar>
-        <Typography flex="3 1 auto" textAlign='left'>{r?.name}</Typography>
-        <TimeIcon minutes={r?.cook_time+r?.prep_time}></TimeIcon>
+        <Typography c padding={1} flex="3 1 auto" textAlign='left'><TitleCase string={r?.name}></TitleCase></Typography>
+        <TimeIcon minutes={r?.cook_time+r?.prep_time} ></TimeIcon>
         <CategoryIcon kind={r?.custom_meat_options}></CategoryIcon>
         <Typography>{m}</Typography>
       </Stack>

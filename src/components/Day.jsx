@@ -39,21 +39,19 @@ const Day = ({day}) => {
       }
      } }, [])
   
-  
-  console.log('userRecipes',userRecipes)
+    let date = new Date(day?.date)
+  console.log(day?.date)
 
   return (
     <Card sx={{ minWidth: 275 }}>
       <CardContent>
-        <Stack direction='column'>
-          <Stack direction="row">
+        <Stack direction='column' spacing={1}>
+          <Stack direction="row" spacing={2}>
             <Typography sx={{ fontSize: 1.25+'rem' }} color="text.secondary" gutterBottom>
-              {/* {day.date.toLocaleDateString('en-US', {day: 'long'})} */}
-              {day.date}
+              {date?.toLocaleDateString('en-US', {weekday: 'long'})}
             </Typography>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
-              {/* {day.date.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })} */}
-              {day.date}
+              {date?.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })}
             </Typography>
           </Stack>
           <Meal r={breakfast} m="B" />

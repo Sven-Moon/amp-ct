@@ -17,10 +17,7 @@ import { useAuth, useUser } from 'reactfire';
 import { GoogleAuthProvider, signInWithPopup, signOut } from 'firebase/auth'
 import { DataContext } from '../app/Providers/DataProvider'
 import { useEffect } from 'react';
-
-const pages = ['Meal Plan', 'Recipes', 'Create a Recipe', 'Donate'];
-// const pages = [{ name: "Meal Plan", link:"meal_plan" }];
-const settings = ['Account', 'Dashboard', 'Logout'];
+import { blueGrey } from '@mui/material/colors';
 
 const ResponsiveAppBar = () => {
   const [anchorElNav, setAnchorElNav] = React.useState(null);
@@ -152,12 +149,8 @@ const ResponsiveAppBar = () => {
     }
     return urObj
   }
-
-
-
-
   return (
-    <AppBar position="static" >
+    <AppBar position="fixed" >
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
@@ -190,7 +183,7 @@ const ResponsiveAppBar = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Menu
+            <Menu 
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -206,16 +199,21 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
-              }}
+              }}           
             >
               <MenuItem key={'meal_plan'} onClick={handleCloseNavMenu}>
-                <Link to={"/meal_plan"}><Typography textAlign="center">{"Meal Plan"}</Typography></Link>
+                <Link to={"/meal_plan"}><Typography color={blueGrey[700]} textAlign="center">{"Meal Plan"}</Typography></Link>
               </MenuItem>
-              <MenuItem key={'recipebox'} onClick={handleCloseNavMenu}>
-                <Link to={"/recipebox"}><Typography textAlign="center">{" Box"}</Typography></Link>
+              <MenuItem key={'recipebox'} onClick={handleCloseNavMenu} >
+                <Link to={"/recipe-box"}><Typography color={blueGrey[700]} textAlign="center">{"Recipe Box"}</Typography></Link>
               </MenuItem>
               <MenuItem key={'recipe'} onClick={handleCloseNavMenu}>
-                <Link to={"/recipe"}><Typography textAlign="center">{"Author a Recipe"}</Typography></Link>
+                <Link to={"/recipe"}><Typography color={blueGrey[700]} textAlign="center">{"Author a Recipe"}</Typography></Link>
+              </MenuItem>
+              <MenuItem key="settings">
+                <Link to="/donate">
+                  <Typography color={blueGrey[700]} textAlign="center">Donate</Typography>
+                </Link>
               </MenuItem>
             </Menu>
           </Box>
@@ -303,10 +301,13 @@ const ResponsiveAppBar = () => {
             >
               
             <MenuItem key="account" onClick={handleCloseUserMenu}>
-              <Typography textAlign="center">Account</Typography>
+              <Typography color={blueGrey[700]} textAlign="center">Account</Typography>
+            </MenuItem>
+              <MenuItem key="settings">
+              <Typography color={blueGrey[700]} textAlign="center">Settings (not yet)</Typography>
             </MenuItem>
               <MenuItem key="signout" onClick={sign_out}>
-              <Typography textAlign="center">Log Out</Typography>
+              <Typography color={blueGrey[700]} textAlign="center">Log Out</Typography>
             </MenuItem>
               
             </Menu>

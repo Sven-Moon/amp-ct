@@ -26,27 +26,28 @@ const CategoryIcon = ({ kind, size }) => {
       bg: '#e4eef5'
     },
   }
+
   const s = {
     lg: {
+      h: "2rem",
+      font: "1.75rem"
+    },
+    md: {
       h: "1.5rem",
       font: ".75rem"
     },
-    md: {
+    sm: {
       h: "1rem",
       font: ".5rem"
     },
-    sm: {
+    xsm: {
       h: ".75rem",
       font: ".5rem"
-    },
-    xsm: {
-      h: ".5rem",
-      font: ".25rem"
     },
   }
   
 
-  return <div className="categoryIcon" style={{backgroundColor:p[kind]?.bg, height:s[size].h, fontSize:s[size].font}}>{p[kind]?.text}</div>
+  return <div className="displayIconRound" style={{backgroundColor:p[kind]?.bg, height:s[size].h, fontSize:s[size].font}}>{p[kind]?.text}</div>
 }
 
 export default CategoryIcon
