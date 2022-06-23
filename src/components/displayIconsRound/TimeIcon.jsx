@@ -43,7 +43,7 @@ const TimeIcon = (props) => {
   return (
     <div className="displayIconRound" style={{ backgroundColor: color, height: s[size]?.h, fontSize: s[size]?.font }}>
     <Stack direction="column"> 
-    <Typography lineHeight={.75} fontSize={s[size]?.font}>
+    <Typography marginTop={.4} lineHeight={.75} fontSize={s[size]?.font}>
       {time}
     </Typography>    
     <Typography lineHeight={.75} color="#333" fontSize={s[size]?.uom_font} fontWeight={500}>

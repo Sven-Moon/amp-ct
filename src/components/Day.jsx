@@ -43,11 +43,11 @@ const Day = ({day}) => {
   console.log(day?.date)
 
   return (
-    <Card sx={{ minWidth: 275 }}>
-      <CardContent>
+    <Card sx={{ minWidth: 275, boxShadow: 'none' }} >
+      <div style={{ margin:'1rem 1rem 0 1rem' }}>
         <Stack direction='column' spacing={1}>
-          <Stack direction="row" spacing={2}>
-            <Typography sx={{ fontSize: 1.25+'rem' }} color="text.secondary" gutterBottom>
+          <Stack direction="row" spacing={2} alignItems="end">
+            <Typography sx={{ fontSize: 1.25+'rem', marginBottom: 0 }} color="text.secondary" gutterBottom>
               {date?.toLocaleDateString('en-US', {weekday: 'long'})}
             </Typography>
             <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
@@ -58,7 +58,7 @@ const Day = ({day}) => {
           <Meal r={lunch} m="L" />
           <Meal r={dinner} m="D" />
         </Stack>
-      </CardContent>
+      </div>
     </Card>
   )
 }
