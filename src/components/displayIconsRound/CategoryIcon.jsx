@@ -1,3 +1,4 @@
+import { Tooltip } from "@mui/material"
 import { borderRadius } from "@mui/system"
 
 const CategoryIcon = ({ kind, size }) => {
@@ -47,7 +48,9 @@ const CategoryIcon = ({ kind, size }) => {
   }
   
 
-  return <div className="displayIconRound" style={{backgroundColor:p[kind]?.bg, height:s[size].h, fontSize:s[size].font}}>{p[kind]?.text}</div>
+  return <Tooltip title={kind}>
+    <div className="displayIconRound" style={{backgroundColor:p[kind]?.bg, height:s[size].h, fontSize:s[size].font}}>{p[kind]?.text}</div>
+  </Tooltip>
 }
 
 export default CategoryIcon
