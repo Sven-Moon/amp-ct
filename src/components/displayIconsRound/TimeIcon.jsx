@@ -18,7 +18,7 @@ const TimeIcon = (props) => {
   const s = {
     lg: {
       h: "2rem",
-      font: "1.75rem"
+      font: "1.25rem"
     },
     md: {
       h: "1.5rem",
