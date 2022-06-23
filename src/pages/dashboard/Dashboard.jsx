@@ -39,8 +39,7 @@ const Dashboard = () => {
           <img src="https://res.cloudinary.com/sventerprise/image/upload/v1656012834/CT-amp/shopping_list_py15uk.png" alt="meal plan" />
         </div>
         <div className='copy'><p>You can review your meal plan and swap out recipes if you like. </p>
-          <p><strong>What's next?</strong> We're coming at ya with a shopping list, that's what. Ingredients will be automatically added to the list. You can add other things if you like (you don't have to add motor oil to a recipe, if that's what you need).</p>
-           
+          <p><strong>What's next?</strong> We're coming at ya with a shopping list, that's what. Ingredients will be automatically added to the list. You can add other things if you like (you don't have to add motor oil to a recipe, if that's what you need).</p>           
         </div>
       </div>
     

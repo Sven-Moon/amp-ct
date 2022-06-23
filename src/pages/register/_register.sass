@@ -1,6 +1,11 @@
 @import '../../styles/_variables'
 @import '../../styles/_mixins'
 
+.welcome
+  height: 200px
+  width: 100%
+  @include flexCenter(column, transparent)
+
 .days-box
   display: flex
   width: 100%
@@ -17,3 +22,24 @@
 
 .day.active
   background-color: $col-btn-primary
+
+.schdedule
+  @include flexCenter(column, transparent)
+
+.planMeals
+  display: flex
+  justify-content: space-between
+  margin-top: 1rem
+
+.submit
+  @include flexCenter(column, transparent)
+  width: 100%
+  margin-top: 1rem
+
+.errorDisplay
+  padding: .25rem
+  background-color: #fcc6c6
+  border: 1px solid tomato
+  border-radius: 3px
+  margin: .5rem
+  color: #ff4422
