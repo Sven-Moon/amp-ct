@@ -49,7 +49,7 @@ const RecipeCardSm = ({ r }) => {
   };
 
   const addToRecipebox = async () => {
-    let url = `https://amp-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}/add/${r.id}`
+    let url = `https://amp-api-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}/add/${r.id}`
     let options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },

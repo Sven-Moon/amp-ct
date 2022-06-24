@@ -50,7 +50,7 @@ const UserRecipeCardSm = ({ r }) => {
   };
 
   const removeFromRecipebox = async () => {
-    let url = `https://amp-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}/remove/${r.id}`
+    let url = `https://amp-api-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}/remove/${r.id}`
     let options = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },

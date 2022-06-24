@@ -18,7 +18,7 @@ const Day = ({day}) => {
     if (!userRecipes) { 
       getRegUserRecipes()
       async function getRegUserRecipes() {
-        let url = `https://amp-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}`
+        let url = `https://amp-api-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}`
         let options = {
           method: 'POST',
           body: JSON.stringify({}),

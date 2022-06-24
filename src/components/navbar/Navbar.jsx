@@ -23,7 +23,7 @@ const Navbar = () => {
     let u = await signInWithPopup(auth, provider)
     if (u) {
       console.log(u)
-      let url = `https://amp-ct.herokuapp.com/api/v1/user/reg`
+      let url = `https://amp-api-ct.herokuapp.com/api/v1/user/reg`
       await fetch(`${url}/${u.user.email}`)
         .then(response => {
           if (response.ok) {
@@ -62,7 +62,7 @@ const Navbar = () => {
 
 
   const getRegUser = async () => {
-    await fetch(`https://amp-ct.herokuapp.com/api/v1/user/reg/${user.email}`)
+    await fetch(`https://amp-api-ct.herokuapp.com/api/v1/user/reg/${user.email}`)
       .then(resp => {
         if (resp.ok) return resp.json()
         else throw new Error('User not registered')
@@ -88,7 +88,7 @@ const Navbar = () => {
   }
 
   async function getRegUserRecipes() {
-    let url = `https://amp-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}`
+    let url = `https://amp-api-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}`
     let options = {
       method: 'POST',
       body: JSON.stringify({}),

@@ -33,7 +33,7 @@ const RecipeBox = () => {
     else getOthersRecipes()
   }
   async function getRegUserRecipes() {
-    let url = `https://amp-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}`
+    let url = `https://amp-api-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}`
     let options = {
       method: 'POST',
       body: JSON.stringify({}),
@@ -59,7 +59,7 @@ const RecipeBox = () => {
     return urObj
   }
   const getOthersRecipes = async () => {
-    let url = 'https://amp-ct.herokuapp.com/api/v1/recipes/search'
+    let url = 'https://amp-api-ct.herokuapp.com/api/v1/recipes/search'
     let options = {
       method: 'POST',
       body: JSON.stringify(filters),
