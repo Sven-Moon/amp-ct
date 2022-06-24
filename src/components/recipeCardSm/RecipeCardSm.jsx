@@ -49,7 +49,7 @@ const RecipeCardSm = ({ r }) => {
   };
 
   const addToRecipebox = async () => {
-    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}/add/${r.id}`
+    let url = `https://amp-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}/add/${r.id}`
     let options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -75,7 +75,6 @@ const RecipeCardSm = ({ r }) => {
       const data = await resp.json()
 
       if (resp.ok) {
-        console.log(data.recipes)
         setMessages([...messages], 'Recipe added to Recipe Box')
         setUserRecipes(createUserRecipeObject(data.recipes))
       } else throw data.json()

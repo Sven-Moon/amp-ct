@@ -8,12 +8,12 @@ import Day from "../../components/Day"
 const MealPlan = () => {
 
   const { regUser, messages, setMessages } = useContext(DataContext)
-  const [mealPlan, setMealPlan] = useState({ })
+  const [mealPlan, setMealPlan] = useState({})
 
-  useEffect(() => {  
+  useEffect(() => {
 
     async function getMealPlan() {
-      let url = `http://localhost:5000/api/v1/meal_plan/${regUser.id}`
+      let url = `https://amp-ct.herokuapp.com/api/v1/meal_plan/${regUser.id}`
       let options = {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -31,27 +31,26 @@ const MealPlan = () => {
         setMessages([...messages], e.message)
       }
     }
-    getMealPlan()  
+    getMealPlan()
 
   }, [mealPlan[0]?.date])
-  
 
-  const addStoreTrip = () => {  }
+
+  const addStoreTrip = () => { }
 
   return (
     <Container>
       <Button ml="auto" size="small">+ Store Trip</Button>
       <Paper style={{ overflow: 'auto' }}>
         <Box>
-        { mealPlan[0] ? 
-            mealPlan.map((day, i) => { 
-              {console.log('day', day)}
-              return <Day key={i} day={day} /> })
-        : null }
+          {mealPlan[0] ?
+            mealPlan.map((day, i) =>  <Day key={i} day={day} />
+            )
+            : null}
         </Box>
       </Paper>
     </Container>
-    
+
   )
 }
 

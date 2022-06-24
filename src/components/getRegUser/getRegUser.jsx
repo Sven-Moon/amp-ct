@@ -1,5 +1,5 @@
 import { useUser } from 'reactfire'
-import { DataContext } from '../../app/Providers/DataProvider'; 
+import { DataContext } from '../../app/Providers/DataProvider';
 import { useEffect, useContext } from 'react'
 import { Navigate, useLocation, useNavigate } from 'react-router-dom';
 
@@ -9,14 +9,14 @@ const GetRegUser = () => {
   const { setRegUser } = useContext(DataContext)
   const { messages, setMessages } = useContext(DataContext)
   const { isLoggedIn, setIsLoggedIn } = useContext(DataContext)
-  
-  
 
-  useEffect(() => {determineStatus()}, [])
+
+
+  useEffect(() => { determineStatus() }, [])
   const navigate = useNavigate()
 
   const getRegUser = async () => {
-    await fetch(`http://localhost:5000/api/v1/user/reg/${user.email}`)
+    await fetch(`https://amp-ct.herokuapp.com/api/v1/user/reg/${user.email}`)
       .then(resp => {
         if (resp.ok) return resp.json()
         else throw new Error('User not registered')
@@ -39,15 +39,15 @@ const GetRegUser = () => {
 
   const determineStatus = async () => {
     if (!user) <Navigate to='/login' />
-    else if (!isLoggedIn) 
+    else if (!isLoggedIn)
       await getRegUser()
     else {
       navigate('/')
     }
   }
 
-    
-    
+
+
   return (<div>Retrieving User Data</div>)
 }
 

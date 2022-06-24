@@ -16,7 +16,7 @@ import CategoryIcon from '../displayIconsRound/CategoryIcon';
 import { useState } from 'react';
 import { List, ListItem, ListItemIcon, Stack } from '@mui/material';
 import TimeIcon from '../displayIconsRound/TimeIcon';
-import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox'; 
+import IndeterminateCheckBoxIcon from '@mui/icons-material/IndeterminateCheckBox';
 import { useContext } from 'react';
 import { DataContext } from '../../app/Providers/DataProvider';
 import { pink } from '@mui/material/colors';
@@ -50,23 +50,23 @@ const UserRecipeCardSm = ({ r }) => {
   };
 
   const removeFromRecipebox = async () => {
-    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}/remove/${r.id}`
+    let url = `https://amp-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}/remove/${r.id}`
     let options = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify ({})
-    }    
+      body: JSON.stringify({})
+    }
     try {
       const resp = await fetch(url, options)
       const data = await resp.json()
-  
-      if (resp.ok) { 
+
+      if (resp.ok) {
         setMessages([...messages], 'Recipe was removed from Recipe Box')
         setUserRecipes(Object.keys(userRecipes)
           .filter(k => !k.includes(r.id)).reduce((cur, k) => {
             return Object.assign(cur, { [k]: userRecipes[k] })
           }, {})
-        )    
+        )
       } else throw data
     } catch (e) {
       console.error(e.message)
@@ -74,56 +74,56 @@ const UserRecipeCardSm = ({ r }) => {
   }
 
   return (
-      <Card variant='outlined' sx={{ maxWidth: 550 }}>
-        <CardHeader
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={r.name}
-          subheader={`By: ${r.created_by}`}
-        />
-        <CardMedia
-          component="img"
-          height="194"
-          image={r.image}
-          alt=""
-        />
-        <CardContent>
-          <Stack direction="row" spacing={2}>
-          <CategoryIcon kind={r.custom_meat_options} size="md"/>
-            <Stack direction="row" spacing={1}>
-            <TimeIcon minutes={r.prep_time + r.cook_time} size="md"/>
-              <div>Minutes</div>
-            </Stack>
+    <Card variant='outlined' sx={{ maxWidth: 550 }}>
+      <CardHeader
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={r.name}
+        subheader={`By: ${r.created_by}`}
+      />
+      <CardMedia
+        component="img"
+        height="194"
+        image={r.image}
+        alt=""
+      />
+      <CardContent>
+        <Stack direction="row" spacing={2}>
+          <CategoryIcon kind={r.custom_meat_options} size="md" />
+          <Stack direction="row" spacing={1}>
+            <TimeIcon minutes={r.prep_time + r.cook_time} size="md" />
+            <div>Minutes</div>
           </Stack>
-        </CardContent>
-        <CardActions disableSpacing>
-          <IconButton aria-label="Remove Recipe">
+        </Stack>
+      </CardContent>
+      <CardActions disableSpacing>
+        <IconButton aria-label="Remove Recipe">
           <IndeterminateCheckBoxIcon sx={{ color: pink[500] }} onClick={removeFromRecipebox} />
-          </IconButton>
-          <IconButton aria-label="share">
-            <ShareIcon />
-          </IconButton>
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <List>
+        </IconButton>
+        <IconButton aria-label="share">
+          <ShareIcon />
+        </IconButton>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <List>
             {r.ingredients.map(ingredient => <ListItem disablePadding>
               <ListItemIcon><CircleIcon /></ListItemIcon>{ingredient.name}</ListItem>)}
-            </List>            
-          </CardContent>
-        </Collapse>
-      </Card>
+          </List>
+        </CardContent>
+      </Collapse>
+    </Card>
 
   );
 }

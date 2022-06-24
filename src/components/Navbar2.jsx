@@ -56,7 +56,7 @@ const ResponsiveAppBar = () => {
     let u = await signInWithPopup(auth, provider)
     if (u) {
       console.log(u)
-      let url = `http://localhost:5000/api/v1/user/reg`
+      let url = `https://amp-ct.herokuapp.com/api/v1/user/reg`
       await fetch(`${url}/${u.user.email}`)
         .then(response => {
           if (response.ok) {
@@ -97,7 +97,7 @@ const ResponsiveAppBar = () => {
 
 
   const getRegUser = async () => {
-    await fetch(`http://localhost:5000/api/v1/user/reg/${user.email}`)
+    await fetch(`https://amp-ct.herokuapp.com/api/v1/user/reg/${user.email}`)
       .then(resp => {
         if (resp.ok) return resp.json()
         else throw new Error('User not registered')
@@ -123,7 +123,7 @@ const ResponsiveAppBar = () => {
   }
 
   async function getRegUserRecipes() {
-    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}`
+    let url = `https://amp-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}`
     let options = {
       method: 'POST',
       body: JSON.stringify({}),
@@ -183,7 +183,7 @@ const ResponsiveAppBar = () => {
             >
               <MenuIcon />
             </IconButton>
-            <Menu 
+            <Menu
               id="menu-appbar"
               anchorEl={anchorElNav}
               anchorOrigin={{
@@ -199,7 +199,7 @@ const ResponsiveAppBar = () => {
               onClose={handleCloseNavMenu}
               sx={{
                 display: { xs: 'block', md: 'none' },
-              }}           
+              }}
             >
               <MenuItem key={'meal_plan'} onClick={handleCloseNavMenu}>
                 <Link to={"/meal_plan"}><Typography color={blueGrey[700]} textAlign="center">{"Meal Plan"}</Typography></Link>
@@ -237,47 +237,47 @@ const ResponsiveAppBar = () => {
             AMP
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-            
-              <Link
+
+            <Link
               to="/meal_plan"
-                key={'meal_plan'}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {"Meal Plan"}
-              </Link>
-              <Link
+              key={'meal_plan'}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              {"Meal Plan"}
+            </Link>
+            <Link
               to="/recipe-box"
-                key={'recipe-box'}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {"Recipe Box"}
-              </Link>
-              <Link
+              key={'recipe-box'}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              {"Recipe Box"}
+            </Link>
+            <Link
               to="/recipe"
-                key={'recipe'}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {"Make a Recipe"}
-              </Link>
-              <Link
+              key={'recipe'}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              {"Make a Recipe"}
+            </Link>
+            <Link
               to="/donate"
-                key={'donate'}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: 'white', display: 'block' }}
-              >
-                {"Donate"}
-              </Link>
+              key={'donate'}
+              onClick={handleCloseNavMenu}
+              sx={{ my: 2, color: 'white', display: 'block' }}
+            >
+              {"Donate"}
+            </Link>
           </Box>
 
           <Box sx={{ flexGrow: 0 }}>
             <Tooltip title="Open settings">
-              {user ?                
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+              {user ?
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
                   <Avatar alt={user?.displayName} src={user?.photoURL} />
-              </IconButton>
+                </IconButton>
                 :
                 <MenuItem key="sign_in" onClick={sign_in}>
                   <Typography textAlign="center">Sign In</Typography>
@@ -299,17 +299,17 @@ const ResponsiveAppBar = () => {
               open={Boolean(anchorElUser)}
               onClose={handleCloseUserMenu}
             >
-              
-            <MenuItem key="account" onClick={handleCloseUserMenu}>
-              <Typography color={blueGrey[700]} textAlign="center">Account</Typography>
-            </MenuItem>
+
+              <MenuItem key="account" onClick={handleCloseUserMenu}>
+                <Typography color={blueGrey[700]} textAlign="center">Account</Typography>
+              </MenuItem>
               <MenuItem key="settings">
-              <Typography color={blueGrey[700]} textAlign="center">Settings (not yet)</Typography>
-            </MenuItem>
+                <Typography color={blueGrey[700]} textAlign="center">Settings (not yet)</Typography>
+              </MenuItem>
               <MenuItem key="signout" onClick={sign_out}>
-              <Typography color={blueGrey[700]} textAlign="center">Log Out</Typography>
-            </MenuItem>
-              
+                <Typography color={blueGrey[700]} textAlign="center">Log Out</Typography>
+              </MenuItem>
+
             </Menu>
           </Box>
         </Toolbar>

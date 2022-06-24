@@ -3,7 +3,7 @@ import { DataContext } from "../../app/Providers/DataProvider";
 
 const RecipeCard = (props) => {
 
-  const [ userRecipe, setUserRecipe ] = useState(false)
+  const [userRecipe, setUserRecipe] = useState(false)
   const { regUser } = useContext(DataContext)
   const { messages, setMessages } = useContext(DataContext)
 
@@ -17,30 +17,31 @@ const RecipeCard = (props) => {
   const { r, i, u } = props
 
   function addRecipe(recipe_id) {
-    let url = `http://localhost:5000/api/v1/user/${regUser.username}/recipe/${recipe_id}/add`
+    let url = `https://amp-ct.herokuapp.com/api/v1/user/${regUser.username}/recipe/${recipe_id}/add`
     let options = {
       method: 'POST',
-      headers: { 'Content-Type': 'application/json',
-      'access-token': regUser['access-token']
-     }
+      headers: {
+        'Content-Type': 'application/json',
+        'access-token': regUser['access-token']
+      }
     }
     fetch(url, options)
-    .then(resp => {
-      if (resp.ok) {
-        setMessages([...messages], 'Recipe added')
-      } 
-      else throw Error('Unable to add recipe')
-    })
-    .catch((e) => setMessages([messages, e.message]))
+      .then(resp => {
+        if (resp.ok) {
+          setMessages([...messages], 'Recipe added')
+        }
+        else throw Error('Unable to add recipe')
+      })
+      .catch((e) => setMessages([messages, e.message]))
   }
 
   return (
     <div key={r.name + i} className="recipe-card_box">
 
-    {/* floating */}
+      {/* floating */}
 
       <button onClick={addRecipe}>-</button>
-      
+
       <div className="row">
         <div className="col">
           <div className="recipe-name">{r.name}</div>
@@ -52,7 +53,7 @@ const RecipeCard = (props) => {
             <li>ingr</li>
             <li>ingr</li>
           </ul>
-        </div>          
+        </div>
         <div className="col">
           <button type='button'>Edit</button>
           <button type='button'>Shh</button>
@@ -77,7 +78,7 @@ const RecipeCard = (props) => {
       <div className="instructions"></div>
     </div>
   );
-  
+
 }
 
 export default RecipeCard
