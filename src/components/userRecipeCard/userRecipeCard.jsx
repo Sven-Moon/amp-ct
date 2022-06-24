@@ -16,7 +16,7 @@ const RecipeCard = (props) => {
   const { r, i, u } = props
 
   function removeRecipe(recipe_id) {
-    let url = `https://amp-api-ct.herokuapp.com/api/v1/user/${regUser.username}/recipe/${recipe_id}/remove`
+    let url = `http://localhost:5000/api/v1/user/${regUser.username}/recipe/${recipe_id}/remove`
     let options = {
       method: 'POST',
       headers: {

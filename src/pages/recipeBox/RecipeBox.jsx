@@ -7,33 +7,33 @@ import RecipeFilters from "../../components/recipeFilters/recipeFilters";
 
 
 const RecipeBox = () => {
-  
+
   const { regUser, userRecipes, setUserRecipes } = useContext(DataContext)
   const { messages, setMessages } = useContext(DataContext)
-  const [ recipes, setRecipes ] = useState([])
+  const [recipes, setRecipes] = useState([])
   const { filters, setFilters } = useContext(DataContext)
-    // prep_time: null,
-    // cook_time: null,
-    // categories: null,
-    // meal_types: '123',
-    // last_made: null, // pass a number of days (2w = 14d, etc)
-    // rating: null,
-    // average_cost_rating: '123'
+  // prep_time: null,
+  // cook_time: null,
+  // categories: null,
+  // meal_types: '123',
+  // last_made: null, // pass a number of days (2w = 14d, etc)
+  // rating: null,
+  // average_cost_rating: '123'
 
   const [open, setOpen] = useState(false);
   const showFilters = () => setOpen(true);
   const hideFilters = () => setOpen(false);
-  
 
-  useEffect(() => { setFilters({...filters, username:regUser.username}) }, [regUser])
-  useEffect(() => { getRecipes()}, [regUser, filters])
-  
+
+  useEffect(() => { setFilters({ ...filters, username: regUser.username }) }, [regUser])
+  useEffect(() => { getRecipes() }, [regUser, filters])
+
   const getRecipes = async () => {
     if (filters.userRecipes && !userRecipes) getRegUserRecipes()
     else getOthersRecipes()
   }
   async function getRegUserRecipes() {
-    let url = `https://amp-api-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}`
+    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}`
     let options = {
       method: 'POST',
       body: JSON.stringify({}),
@@ -59,7 +59,7 @@ const RecipeBox = () => {
     return urObj
   }
   const getOthersRecipes = async () => {
-    let url = 'https://amp-api-ct.herokuapp.com/api/v1/recipes/search'
+    let url = 'http://localhost:5000/api/v1/recipes/search'
     let options = {
       method: 'POST',
       body: JSON.stringify(filters),
@@ -86,30 +86,30 @@ const RecipeBox = () => {
 
   }
   const toggleUserRecipes = () => {
-    setFilters({...filters, userRecipes: !filters.userRecipes})
+    setFilters({ ...filters, userRecipes: !filters.userRecipes })
   }
 
   return (
     <Box>
-        <h1>Recipe Box</h1>
-        <Stack direction="row" justify-content="space-around"></Stack>
-          <Button onClick={showFilters}>Filters</Button>
-          <Modal open={open} onClose={hideFilters}>
-            <RecipeFilters/>
-          </Modal>
-          <Button onClick={toggleUserRecipes}>{filters.userRecipes ? 'Find More Like This': 'Back to My Recipes'}</Button>
-        <Paper style={{maxHeight:80+'vh', overflow: 'auto'}}>
-            
-                  <Box>
+      <h1>Recipe Box</h1>
+      <Stack direction="row" justify-content="space-around"></Stack>
+      <Button onClick={showFilters}>Filters</Button>
+      <Modal open={open} onClose={hideFilters}>
+        <RecipeFilters />
+      </Modal>
+      <Button onClick={toggleUserRecipes}>{filters.userRecipes ? 'Get More Recipes' : 'Back to My Recipes'}</Button>
+      <Paper style={{ maxHeight: 80 + 'vh', overflow: 'auto' }}>
+
+        <Box>
           {filters.userRecipes
             ? userRecipes
               ? Object.values(userRecipes).map((uRecipes, i) =>
                 <UserRecipeCardSm key={i} r={uRecipes} i={i} u={regUser.username} />)
               : 'No Results matching search'
             : recipes.map((r, i) => <RecipeCardSm key={i} r={r} i={i} u={regUser.username} />)
-           }
-                  </Box>
-        </Paper>
+          }
+        </Box>
+      </Paper>
     </Box>
   );
 }

@@ -50,7 +50,7 @@ const UserRecipeCardSm = ({ r }) => {
   };
 
   const removeFromRecipebox = async () => {
-    let url = `https://amp-api-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}/remove/${r.id}`
+    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}/remove/${r.id}`
     let options = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
@@ -92,10 +92,9 @@ const UserRecipeCardSm = ({ r }) => {
       />
       <CardContent>
         <Stack direction="row" spacing={2}>
-          <CategoryIcon kind={r.custom_meat_options} size="md" />
+          <CategoryIcon kind={r.custom_meat_options} size="lg" />
           <Stack direction="row" spacing={1}>
-            <TimeIcon minutes={r.prep_time + r.cook_time} size="md" />
-            <div>Minutes</div>
+            <TimeIcon minutes={r.prep_time + r.cook_time} size="lg" />
           </Stack>
         </Stack>
       </CardContent>

@@ -46,7 +46,7 @@ const TimeIcon = (props) => {
     <Typography marginTop={.4} lineHeight={.75} fontSize={s[size]?.font}>
       {time}
     </Typography>    
-    <Typography lineHeight={.75} color="#333" fontSize={s[size]?.uom_font} fontWeight={500}>
+    <Typography lineHeight={.75} color="#333" fontSize={s[size]?.uom_font} fontWeight={500} textAlign='center'>
       {uot}
       </Typography>
     </Stack>

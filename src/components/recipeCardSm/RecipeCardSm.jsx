@@ -49,13 +49,13 @@ const RecipeCardSm = ({ r }) => {
   };
 
   const addToRecipebox = async () => {
-    let url = `https://amp-api-ct.herokuapp.com/api/v1/recipes/recipebox/${regUser.username}/add/${r.id}`
+    let url = `http://localhost:5000/api/v1/recipes/recipebox/${regUser.username}/add/${r.id}`
     let options = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify ({
+      body: JSON.stringify({
         "custom_meal_types": null, "custom_meat_options": null,
-        "schedule": true, 
+        "schedule": true,
         "fixed_schedule": false, "fixed_period": 14
       })
     }
@@ -71,7 +71,7 @@ const RecipeCardSm = ({ r }) => {
     // .catch(e => setMessages([...messages], e))
 
     try {
-      const resp = await fetch(url,options)
+      const resp = await fetch(url, options)
       const data = await resp.json()
 
       if (resp.ok) {
@@ -81,7 +81,7 @@ const RecipeCardSm = ({ r }) => {
     } catch (e) {
       console.error(e.message)
     }
-    
+
     function createUserRecipeObject(userRecipesArray) {
       let urObj = {}
       for (let recipe of userRecipesArray) {
@@ -92,60 +92,59 @@ const RecipeCardSm = ({ r }) => {
   }
 
   return (
-      <Card variant='outlined' sx={{ maxWidth: 550 }}>
-        <CardHeader
-          action={
-            <IconButton aria-label="settings">
-              <MoreVertIcon />
-            </IconButton>
-          }
-          title={r.name}
-          subheader={`By: ${r.created_by}`}
-        />
-        <CardMedia
-          component="img"
-          height="194"
-          image={r.image}
-          alt=""
-        />
-        <CardContent>
-          <Stack direction="row" spacing={2}>
-          <CategoryIcon kind={r.meat_options} size="md"/>
-            <Stack direction="row" spacing={1}>
-            <TimeIcon minutes={r.prep_time + r.cook_time} size="md"/>
-              <div>Minutes</div>
-            </Stack>
+    <Card variant='outlined' sx={{ maxWidth: 550 }}>
+      <CardHeader
+        action={
+          <IconButton aria-label="settings">
+            <MoreVertIcon />
+          </IconButton>
+        }
+        title={r.name}
+        subheader={`By: ${r.created_by}`}
+      />
+      <CardMedia
+        component="img"
+        height="194"
+        image={r.image}
+        alt=""
+      />
+      <CardContent>
+        <Stack direction="row" spacing={2}>
+          <CategoryIcon kind={r.meat_options} size="md" />
+          <Stack direction="row" spacing={1}>
+            <TimeIcon minutes={r.prep_time + r.cook_time} size="md" />
           </Stack>
-        </CardContent>
-        <CardActions disableSpacing>
-          { userRecipes[r.id] 
-            ? <BeenhereIcon /> 
-            : <IconButton aria-label="Add to Recipe Box">
-                <AddBoxIcon color="primary" onClick={addToRecipebox} />
-              </IconButton>
-          }
-          
-          {/* <IconButton aria-label="share">
+        </Stack>
+      </CardContent>
+      <CardActions disableSpacing>
+        {userRecipes[r.id]
+          ? <BeenhereIcon />
+          : <IconButton aria-label="Add to Recipe Box">
+            <AddBoxIcon color="primary" onClick={addToRecipebox} />
+          </IconButton>
+        }
+
+        {/* <IconButton aria-label="share">
             <ShareIcon />
           </IconButton> */}
-          <ExpandMore
-            expand={expanded}
-            onClick={handleExpandClick}
-            aria-expanded={expanded}
-            aria-label="show more"
-          >
-            <ExpandMoreIcon />
-          </ExpandMore>
-        </CardActions>
-        <Collapse in={expanded} timeout="auto" unmountOnExit>
-          <CardContent>
-            <List>
+        <ExpandMore
+          expand={expanded}
+          onClick={handleExpandClick}
+          aria-expanded={expanded}
+          aria-label="show more"
+        >
+          <ExpandMoreIcon />
+        </ExpandMore>
+      </CardActions>
+      <Collapse in={expanded} timeout="auto" unmountOnExit>
+        <CardContent>
+          <List>
             {r.ingredients.map(ingredient => <ListItem disablePadding>
               <ListItemIcon><CircleIcon /></ListItemIcon>{ingredient.name}</ListItem>)}
-            </List>            
-          </CardContent>
-        </Collapse>
-      </Card>
+          </List>
+        </CardContent>
+      </Collapse>
+    </Card>
 
   );
 }

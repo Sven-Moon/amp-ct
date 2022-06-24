@@ -17,7 +17,7 @@ function App() {
   return (
     < >
       <Navbar2></Navbar2>
-      <Container sx={{minHeight: 70+'%', marginTop: 60+'px'}}>
+      <Container sx={{minHeight: 70+'%', marginTop: 60+'px', display:'flex', justifyContent:'center'}}>
       <Routes>
         <Route children path='/account' element={<Account />}></Route>
         <Route children path='/register' element={<Register />}></Route>

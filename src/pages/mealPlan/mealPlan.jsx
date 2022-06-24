@@ -13,7 +13,7 @@ const MealPlan = () => {
   useEffect(() => {
 
     async function getMealPlan() {
-      let url = `https://amp-api-ct.herokuapp.com/api/v1/meal_plan/${regUser.id}`
+      let url = `http://localhost:5000/api/v1/meal_plan/${regUser.id}`
       let options = {
         method: 'POST',
         headers: { "Content-Type": "application/json" },
@@ -44,7 +44,7 @@ const MealPlan = () => {
       <Paper style={{ overflow: 'auto' }}>
         <Box>
           {mealPlan[0] ?
-            mealPlan.map((day, i) =>  <Day key={i} day={day} />
+            mealPlan.map((day, i) => <Day key={i} day={day} />
             )
             : null}
         </Box>
