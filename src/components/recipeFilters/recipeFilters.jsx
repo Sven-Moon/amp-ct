@@ -1,4 +1,4 @@
-import { FormControlLabel, Input, Switch, TextField } from "@mui/material"
+import { FormControlLabel, Input, Slider, Switch, TextField, Typography } from "@mui/material"
 import { Box } from "@mui/system"
 import { useContext } from "react"
 import { DataContext } from "../../app/Providers/DataProvider"
@@ -13,25 +13,50 @@ const RecipeFilters = () => {
     let newValue = Object.assign({},filters)
     newValue[field_set][e.target.name] = e.target.checked
     setFilters(newValue)
+  }
+  const marks = [
+    {value: 0,
+      label: '10'},
+    {value: 15,
+      label: '15'},
+    {value: 30,
+      label: '30'},
+    {value: 45,
+      label: '45'},
+    {value: 60,
+      label: '60'},
+    {value: 90,
+      label: '90'},
+    {value: 120,
+      label: '120'},
+    {value: 180,
+      label: '180'},
+  ];
 
+  function valuetext(value) {
+    return `${value}°C`;
+  }
+
+  function valueLabelFormat(value) {
+    return marks.findIndex((mark) => mark.value === value) + 1;
   }
 
   return (
     <Box sx={{backgroundColor:"white", alignSelf: 'center'}}>
       <fieldset>
         <legend>Time</legend>
-        <TextField
-        label="Prep Time"
-        name='prep_time'
-        variant="filled"></TextField>
-        <TextField
-        label="Cook Time"
-        name='cook_time'
-        variant="filled"></TextField>
-        <TextField
-        label="Total Time"
-        name='total_time'
-        variant="filled"></TextField>
+        <Typography gutterBottom>Total Time</Typography>
+        <Box sx={{ maxWidth: 800 }}>
+          <Slider
+            aria-label="Restricted values"
+            defaultValue={45}
+            valueLabelFormat={valueLabelFormat}
+            getAriaValueText={valuetext}
+            step={null}
+            valueLabelDisplay="auto"
+            marks={marks}
+          />
+        </Box>
       </fieldset>
 
       <fieldset id="meat_options">
