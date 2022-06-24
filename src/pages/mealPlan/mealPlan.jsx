@@ -34,11 +34,7 @@ const MealPlan = () => {
     getMealPlan()  
 
   }, [mealPlan[0]?.date])
-
-
   
-
-  console.log('mealPlan:', mealPlan)
 
   const addStoreTrip = () => {  }
 

@@ -13,7 +13,13 @@ const DataProvider = (props) => {
     created_by: null,
     prep_time: null,
     cook_time: null,
-    meat_options: null,
+    meat_options: {
+      vegetarian: true,
+      chicken: true,
+      beef: true,
+      fish: true,
+      pork: true
+    },
     meal_types: '123',
     last_made: null, // pass a number of days (2w = 14d, etc)
     rating: null,

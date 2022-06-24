@@ -1,4 +1,4 @@
-import { Box, Button, Modal, Stack } from "@mui/material";
+import { Box, Button, Modal, Paper, Stack } from "@mui/material";
 import { useState, useEffect, useContext } from "react";
 import { DataContext } from "../../app/Providers/DataProvider";
 import RecipeCardSm from '../../components/recipeCardSm/RecipeCardSm'
@@ -45,7 +45,6 @@ const RecipeBox = () => {
         else throw Error('Could not find recipes with that username')
       })
       .then(data => {
-        console.log('recipebox getRegUserRecipes', data.recipes)
         setUserRecipes(createUserRecipeObject(data.recipes))
       })
       .catch((e) => {
@@ -71,7 +70,8 @@ const RecipeBox = () => {
         if (resp.ok) return resp.json()
         else throw Error('Could not find recipes with that username')
       })
-      .then(data => { // data = { recipes: [{recipe}] }        
+      .then(data => { // data = { recipes: [{recipe}] } 
+        console.log(data.recipes)       
         setRecipes(data.recipes)
       })
       .catch((e) => {
@@ -89,28 +89,28 @@ const RecipeBox = () => {
   const toggleUserRecipes = () => {
     setFilters({...filters, userRecipes: !filters.userRecipes})
   }
-  console.log(filters.userRecipes)
-
-  console.log(userRecipes)
 
   return (
-    <Box scroll="paper">
-      <h1>Recipe Box</h1>
-      <Stack direction="row" justify-content="space-around"></Stack>
-        <Button onClick={showFilters}>Filters</Button>
-        {/* <Modal open={open} onClose={hideFilters}>
-          <RecipeFilters/>
-        </Modal> */}
-        <Button onClick={toggleUserRecipes}>{filters.userRecipes ? 'Find More Like This': 'Back to My Recipes'}</Button>
-      <div className="recipes_box">
-        {filters.userRecipes 
-          ? userRecipes
-            ? Object.values(userRecipes).map((uRecipes, i) => 
-              <UserRecipeCardSm key={i} r={uRecipes} i={i} u={regUser.username} />)
-            : 'No Results matching search'
-          : recipes.map((r, i) => <RecipeCardSm key={i} r={r} i={i} u={regUser.username} />)
-         }
-      </div>
+    <Box>
+        <h1>Recipe Box</h1>
+        <Stack direction="row" justify-content="space-around"></Stack>
+          <Button onClick={showFilters}>Filters</Button>
+          <Modal open={open} onClose={hideFilters}>
+            <RecipeFilters/>
+          </Modal>
+          <Button onClick={toggleUserRecipes}>{filters.userRecipes ? 'Find More Like This': 'Back to My Recipes'}</Button>
+        <Paper style={{maxHeight:80+'vh', overflow: 'auto'}}>
+            
+                  <Box>
+          {filters.userRecipes
+            ? userRecipes
+              ? Object.values(userRecipes).map((uRecipes, i) =>
+                <UserRecipeCardSm key={i} r={uRecipes} i={i} u={regUser.username} />)
+              : 'No Results matching search'
+            : recipes.map((r, i) => <RecipeCardSm key={i} r={r} i={i} u={regUser.username} />)
+           }
+                  </Box>
+        </Paper>
     </Box>
   );
 }

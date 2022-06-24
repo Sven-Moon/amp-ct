@@ -394,6 +394,18 @@ button.MuiButton-root {
   color: #ff4422;
 }
 
+.control-group {
+  margin-bottom: .25rem;
+}
+
+.recipes_box {
+  height: calc(100% - 60px);
+  overflow: auto;
+  width: 100%;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 nav {
   display: block;
 }

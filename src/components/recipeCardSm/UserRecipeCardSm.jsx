@@ -73,8 +73,6 @@ const UserRecipeCardSm = ({ r }) => {
     }
   }
 
-
-  console.log(r)
   return (
       <Card variant='outlined' sx={{ maxWidth: 550 }}>
         <CardHeader
