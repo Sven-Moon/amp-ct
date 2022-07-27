@@ -93,7 +93,7 @@ const Register = () => {
     if (userId) await setSchedule(userId)
   }
   const userRegistration = async () => {
-    return await fetch('http://localhost:5000/api/v1/user/register', {
+    return await fetch('https://amp-ct-api.herokuapp.com/api/v1/user/register', {
       'method': 'POST',
       'body': JSON.stringify(userData),
       headers: {
@@ -118,7 +118,7 @@ const Register = () => {
       })
   }
   const setSchedule = async (id) => {
-    fetch(`http://localhost:5000/api/v1/meal_plan/${id}/schedule/create`, {
+    fetch(`https://amp-ct-api.herokuapp.com/api/v1/meal_plan/${id}/schedule/create`, {
       'method': 'POST',
       'body': JSON.stringify(scheduleData),
       headers: { 'Content-Type': 'application/json' }

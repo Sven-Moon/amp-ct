@@ -17,7 +17,7 @@ const RecipeCard = (props) => {
   const { r, i, u } = props
 
   function addRecipe(recipe_id) {
-    let url = `http://localhost:5000/api/v1/user/${regUser.username}/recipe/${recipe_id}/add`
+    let url = `https://amp-ct-api.herokuapp.com/api/v1/user/${regUser.username}/recipe/${recipe_id}/add`
     let options = {
       method: 'POST',
       headers: {

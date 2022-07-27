@@ -13,7 +13,7 @@ const MealPlan = () => {
   useEffect(() => {
 
     async function getMealPlan() {
-      let url = `http://localhost:5000/api/v1/meal_plan/${regUser.id}`
+      let url = `https://amp-ct-api.herokuapp.com/api/v1/meal_plan/${regUser.id}`
       let options = {
         method: 'POST',
         headers: { "Content-Type": "application/json" },

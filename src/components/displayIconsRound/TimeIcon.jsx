@@ -6,14 +6,19 @@ const TimeIcon = (props) => {
   let { minutes, size } = props
   size = size || "md"
 
-  if (minutes <= 10) var color = '#3dd40f'
-  else if (minutes <= 20) var color = '#05a10d'
-  else if (minutes <= 30) var color = '#93d406'
-  else if (minutes <= 45) var color = '#999c16'
-  else if (minutes <= 60) var color = '#cfbe06'
-  else if (minutes <= 90) var color = '#cf8206'
-  else if (minutes <= 120) var color = '#a12c05'
-  else var color = '#a10527'
+
+  let color = setColor(minutes)
+
+  function setColor(minutes) {
+    if (minutes <= 10) return '#3dd40f'
+    else if (minutes <= 20) return '#05a10d'
+    else if (minutes <= 30) return '#93d406'
+    else if (minutes <= 45) return '#999c16'
+    else if (minutes <= 60) return '#cfbe06'
+    else if (minutes <= 90) return '#cf8206'
+    else if (minutes <= 120) return '#a12c05'
+    else return '#a10527'
+  }
 
   const time = (minutes > 60) ? (minutes / 60).toFixed(1) : minutes.toString()
   const uot = (minutes > 60) ? "Hrs" : "Min"
