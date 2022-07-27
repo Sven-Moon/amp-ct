@@ -13,7 +13,6 @@ const Day = ({day}) => {
   let lunch = userRecipes[day.lunch_recipe_id]
   let dinner = userRecipes[day.dinner_recipe_id]
 
-  console.log('day:', day)
   useEffect(() => {
     if (!userRecipes) { 
       getRegUserRecipes()
@@ -29,7 +28,6 @@ const Day = ({day}) => {
           const data = await resp.json()
           if (!resp.ok) throw data
           else {
-            console.log('data.recipes:', data.recipes)
             setUserRecipes(data.recipes) // [ { RecipeBox } ]
           }
         } catch (e) {
@@ -40,7 +38,6 @@ const Day = ({day}) => {
      } }, [])
   
     let date = new Date(day?.date)
-  console.log(day?.date)
 
   return (
     <Card sx={{ minWidth: 275, boxShadow: 'none' }} >

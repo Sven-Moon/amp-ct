@@ -13,7 +13,6 @@ const RecipeCard = (props) => {
     month: 'short',
     day: 'numeric'
   }
-  console.log(props)
   const { r, i, u } = props
 
   function addRecipe(recipe_id) {

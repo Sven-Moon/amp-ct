@@ -78,7 +78,6 @@ const Register = () => {
     setScheduleData({ ...scheduleData, plan_breakfast: e.target.checked })
   }
   function updateLunch(e) {
-    console.log(e.target);
     setScheduleData({ ...scheduleData, plan_lunch: e.target.checked })
   }
   function updateDinner(e) {
@@ -86,7 +85,6 @@ const Register = () => {
   }
   const submit = async (e) => {
     e.preventDefault()
-    console.log(userData)
     // REGISTER USER
     const userId = await userRegistration(userData)
 
@@ -129,7 +127,6 @@ const Register = () => {
         else throw Error('set schedule error')
       }, (e) => {
         setMessages([...messages, "Error: Schedule not set. Open settings to set your schedule."])
-        console.log(e)
       })
       .then(() => {
         let message = "Schedule created. To modify it, open settings."
@@ -147,12 +144,10 @@ const Register = () => {
 
       let newError = [...errors, { 1: "At least one trip day should be selected." }]
       setErrors(newError)
-      console.log('after newError')
     }
     else {
       let theseErrors = errors?.filter(e => Object.keys(e)[0] !== '1')
       setErrors(theseErrors)
-      console.log('after setErrors')
     }
 
     if (!scheduleData?.plan_breakfast

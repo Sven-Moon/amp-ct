@@ -55,7 +55,6 @@ const ResponsiveAppBar = () => {
     const provider = new GoogleAuthProvider()
     let u = await signInWithPopup(auth, provider)
     if (u) {
-      console.log(u)
       let url = `https://amp-ct-api.herokuapp.com/api/v1/user/reg`
       await fetch(`${url}/${u.user.email}`)
         .then(response => {
@@ -66,7 +65,6 @@ const ResponsiveAppBar = () => {
           }
         })
         .then((data) => {
-          console.log('data (nav)', data)
           setRegUser({
             id: data.user.id,
             username: data.user.username,
@@ -91,7 +89,6 @@ const ResponsiveAppBar = () => {
       'access-token': ''
     })
     navigate('/')
-    console.log('signed user out', user)
     handleCloseUserMenu()
   }
 

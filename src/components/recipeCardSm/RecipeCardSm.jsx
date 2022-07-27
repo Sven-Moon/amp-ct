@@ -59,16 +59,6 @@ const RecipeCardSm = ({ r }) => {
         "fixed_schedule": false, "fixed_period": 14
       })
     }
-    // await fetch(url, options)
-    // .then(resp => {
-    //   if (resp.ok) {
-    //     setMessages([...messages], 'Recipe added to Recipe Box')
-    //     return resp.json()
-    //   }
-    //   else throw Error('Could not add recipe to Recipe Box')
-    //   .then(data => console.log('addToRecipebox data:',data))
-    // })
-    // .catch(e => setMessages([...messages], e))
 
     try {
       const resp = await fetch(url, options)

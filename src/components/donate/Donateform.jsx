@@ -57,7 +57,6 @@ const DonateForm = () => {
       elements,
       redirect: 'if_required'
     })
-    console.log('payment intent received:', data);
     if (data['error']) {
       setErrorMessage(data['error']['message'])
       setShowForm('error')
@@ -69,7 +68,6 @@ const DonateForm = () => {
     }
   }
   const toggleDonatePay = () => {
-    console.log('happens');
     document.getElementById("donate-box").classList.toggle("show")
     document.getElementById("payment-form").classList.toggle("show")
     // expandCollapseToggle(donateBox)

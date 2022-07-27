@@ -17,14 +17,11 @@ export const Recipe = () => {
   const [ingredientCount, setIngredientCount] = useState([0])
 
   const submitRecipe = (e) => {
-    console.log(regUser)
     e.preventDefault()
 
     // TODO: convert to form submission
     let form = {}
     form["name"] = document.querySelector('[name="name"]').value
-    // let prep_time = document.querySelector('[name="prepTime"]').value
-    // console.log('prep_time = ', !!prep_time);
     form["prep_time"] = document.querySelector('[name="prepTime"]').value || null
     form["cook_time"] = document.querySelector('[name="cookTime"]').value || null
     form["instructions"] = document.querySelector('[name="instructions"]').value
@@ -54,7 +51,6 @@ export const Recipe = () => {
   const postRecipeData = async (form) => {
     let url = 'http://127.0.0.1:5000/api/v1/recipes/create'
     let body = JSON.stringify(form)
-    console.log(body);
     let options = {
       method: 'POST',
       body: body,
@@ -119,7 +115,6 @@ export const Recipe = () => {
     e.preventDefault()
     let new_val = [...ingredientCount]
     new_val.push(ingredientCount.length)
-    console.log(new_val)
     setIngredientCount(new_val)
 
     // reorderIngredientIndices()

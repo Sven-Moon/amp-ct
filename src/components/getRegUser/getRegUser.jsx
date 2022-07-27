@@ -32,7 +32,6 @@ const GetRegUser = () => {
       })
       .catch((e) => {
         setMessages([...messages, 'could not find user in registered users'])
-        console.log(e)
         navigate('/register')
       })
   }

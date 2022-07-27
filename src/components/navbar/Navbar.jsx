@@ -22,7 +22,6 @@ const Navbar = () => {
     const provider = new GoogleAuthProvider()
     let u = await signInWithPopup(auth, provider)
     if (u) {
-      console.log(u)
       let url = `https://amp-ct-api.herokuapp.com/api/v1/user/reg`
       await fetch(`${url}/${u.user.email}`)
         .then(response => {
@@ -57,7 +56,6 @@ const Navbar = () => {
       'access-token': ''
     })
     navigate('/')
-    console.log('signed user out', user)
   }
 
 
