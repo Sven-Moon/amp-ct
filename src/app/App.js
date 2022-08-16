@@ -11,12 +11,12 @@ import Protected from '../components/Protected';
 import MealPlan from '../pages/mealPlan/mealPlan';
 import BottomNav from '../components/BottomNav'
 import { Container } from '@mui/system';
-import Navbar2 from '../components/Navbar2'
+import Navbar from '../components/Navbar'
 
 function App() {
   return (
     < >
-      <Navbar2></Navbar2>
+      <Navbar></Navbar>
       <Container sx={{minHeight: 70+'%', marginTop: 60+'px', display:'flex', justifyContent:'center'}}>
       <Routes>
         <Route children path='/account' element={<Account />}></Route>

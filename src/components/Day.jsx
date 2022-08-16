@@ -35,7 +35,10 @@ const Day = ({day}) => {
           setMessages([...messages], e.message)
         }
       }
-     } }, [])
+    } }, []
+  )
+
+  
   
     let date = new Date(day?.date)
 
