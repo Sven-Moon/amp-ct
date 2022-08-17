@@ -25,15 +25,13 @@ const Dashboard = () => {
         </div>
       </div>
       <div className='instruction'>
+        <div className="img_box">
+          <img src="https://res.cloudinary.com/sventerprise/image/upload/v1656012603/CT-amp/meal_plan_pyrezr.png" alt="meal plan" />
+        </div>
         <div className='copy o2'>
           <p>Then, head over to your <Link to="/">Meal Plan</Link>. The app will pick meals for you and add the ingredients to your shopping list.</p>
           <p>Meals are randomly selected, but you'll be more likely to get meals you haven't seen in a while and less likely to get meals that don't fit your general preferences.</p>
           <p>You can review your meal plan and swap out recipes if you like. </p>
-          
-           
-        </div>
-        <div className="img_box">
-          <img src="https://res.cloudinary.com/sventerprise/image/upload/v1656012603/CT-amp/meal_plan_pyrezr.png" alt="meal plan" />
         </div>
       </div>
       <div className='instruction'>
