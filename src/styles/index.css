@@ -60,6 +60,23 @@
   }
 }
 
+.app_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background: transparent;
+}
+
 #root {
   width: 100%;
 }
@@ -175,6 +192,11 @@ button.MuiButton-root {
   width: 100%;
 }
 
+.dashboard_box * {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
 .hero {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -190,7 +212,8 @@ button.MuiButton-root {
       -ms-flex-direction: column;
           flex-direction: column;
   background: transparent;
-  height: 300px;
+  height: 40vh;
+  min-height: 300px;
 }
 
 .instruction {
@@ -208,6 +231,12 @@ button.MuiButton-root {
 }
 
 .instruction .img_box {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 100%;
   padding: 10%;
   -webkit-box-sizing: border-box;
@@ -218,6 +247,10 @@ button.MuiButton-root {
   object-fit: contain;
   width: 100%;
   -o-object-fit: contain;
+}
+
+.instruction .img_box img.smaller {
+  width: 60%;
 }
 
 .instruction .copy {
@@ -240,11 +273,12 @@ button.MuiButton-root {
           order: 2;
 }
 
-@media only screen and (min-width: 600px) {
-  .img_box {
+@media only screen and (min-width: 768px) {
+  .instruction .img_box {
     width: 60%;
+    padding: 1rem;
   }
-  .copy {
+  .instruction .copy {
     width: 40%;
   }
 }

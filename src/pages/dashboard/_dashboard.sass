@@ -5,9 +5,13 @@
   height: calc(100%-16px)
   width: 100%
 
+  *
+    box-sizing: border-box
+
 .hero
   @include flexCenter(column, transparent)
-  height: 300px
+  height: 40vh
+  min-height: 300px
 
 .instruction
   display: flex
@@ -16,6 +20,8 @@
   align-items: center
 
   .img_box
+    display: flex
+    justify-content: center
     width: 100%
     padding: 10%
     box-sizing: border-box
@@ -24,6 +30,9 @@
       object-fit: contain
       width: 100%
       -o-object-fit: contain
+
+    img.smaller
+      width: 60%
 
   .copy
     width: 100%
@@ -41,11 +50,12 @@
   & .o2
     order: 2
 
-@media only screen and (min-width: $phone)
+@media only screen and (min-width: $desktop)
   .instruction
 
-  .img_box
-    width: 60%
+    .img_box
+      width: 60%
+      padding: 1rem
 
-  .copy
-    width: 40%
+    .copy
+      width: 40%

@@ -11,8 +11,9 @@ const Dashboard = () => {
 
     <div className="dashboard_box">
       <div className='hero'>
-        <h1>STOP planning your meals!</h1>
-        <h4>Let us do that for you.</h4>
+        <h1>STOP</h1>
+        <h2>the stress of meal planning.</h2>
+        <h4>Let us do it for you.</h4>
       </div>
       <div className='instruction'>
         <div className="img_box">
@@ -27,6 +28,7 @@ const Dashboard = () => {
         <div className='copy o2'>
           <p>Then, head over to your <Link to="/">Meal Plan</Link>. The app will pick meals for you and add the ingredients to your shopping list.</p>
           <p>Meals are randomly selected, but you'll be more likely to get meals you haven't seen in a while and less likely to get meals that don't fit your general preferences.</p>
+          <p>You can review your meal plan and swap out recipes if you like. </p>
           
            
         </div>
@@ -35,10 +37,10 @@ const Dashboard = () => {
         </div>
       </div>
       <div className='instruction'>
-        <div className="img_box">
-          <img src="https://res.cloudinary.com/sventerprise/image/upload/v1656012834/CT-amp/shopping_list_py15uk.png" alt="meal plan" />
+        <div className="img_box smaller">
+          <img class="smaller" src="https://res.cloudinary.com/sventerprise/image/upload/v1656012834/CT-amp/shopping_list_py15uk.png" alt="meal plan" />
         </div>
-        <div className='copy'><p>You can review your meal plan and swap out recipes if you like. </p>
+        <div className='copy'>
           <p><strong>What's next?</strong> We're coming at ya with a shopping list, that's what. Ingredients will be automatically added to the list. You can add other things if you like (you don't have to add motor oil to a recipe, if that's what you need).</p>           
         </div>
       </div>
